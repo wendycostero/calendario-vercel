@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Calendario Evaluaciones 2026-1 ✨</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+  :root {
+    --pink-hot:   #FF1F8F;
+    --pink-mid:   #FF69B4;
+    --pink-light: #FFB6C1;
+    --pink-pale:  #FFF0F5;
+    --pink-bg:    #FDE8F3;
+    --purple:     #C71585;
+    --lilac:      #E8A0D0;
+    --white:      #FFFFFF;
+    --eco:        #FF69B4;
+    --sis:        #C71585;
+    --termo:      #FF1493;
+    --lab:        #DB7093;
+    --prog:       #0891b2;
+    --shadow:     0 4px 20px rgba(255,105,180,0.25);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #ffe4f0 0%, #ffd6eb 40%, #f9c0e0 100%);
+    min-height: 100vh;
+    padding: 30px 20px 60px;
+    color: #5a0030;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .header h1 {
+    font-size: 2.4em;
+    font-weight: 900;
+    background: linear-gradient(90deg, #FF1F8F, #C71585, #FF69B4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    letter-spacing: 1px;
+  }
+  .header p { color: #c2185b; font-size: 1em; margin-top: 4px; font-weight: 600; }
+  .crown { font-size: 2em; }
+
+  /* LEGEND */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center; margin-bottom: 28px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 6px;
+    background: white; border-radius: 20px;
+    padding: 5px 14px; font-size: 0.82em; font-weight: 700;
+    box-shadow: 0 2px 8px rgba(255,105,180,0.2);
+    color: #5a0030;
+  }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+  /* MONTH BLOCK */
+  .month-block {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 28px;
+    border: 2px solid var(--pink-light);
+  }
+  .month-header {
+    background: linear-gradient(90deg, #FF1F8F, #C71585);
+    color: white;
+    padding: 14px 24px;
+    font-size: 1.15em;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .day-name {
+    background: #fce4ec;
+    text-align: center;
+    padding: 8px 2px;
+    font-size: 0.72em;
+    font-weight: 800;
+    color: var(--pink-hot);
+    border-right: 1px solid #fce4ec;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .day {
+    border-right: 1px solid #fce4ec;
+    border-bottom: 1px solid #fce4ec;
+    min-height: 90px;
+    padding: 6px;
+    vertical-align: top;
+    background: white;
+    transition: background 0.2s;
+  }
+  .day:nth-child(7n) { border-right: none; }
+  .day.empty { background: #fff9fb; }
+  .day.today { background: linear-gradient(135deg, #fff0fa, #ffe4f5); }
+  .day.receso-day { background: #fafafa; }
+  .day-num {
+    font-size: 0.78em;
+    font-weight: 800;
+    color: #c48faa;
+    margin-bottom: 4px;
+  }
+  .day.today .day-num { color: var(--pink-hot); font-size: 0.9em; }
+  .day.has-event .day-num { color: #5a0030; }
+
+  /* EVENTS */
+  .event {
+    border-radius: 8px;
+    padding: 3px 7px;
+    margin-bottom: 3px;
+    font-size: 0.67em;
+    font-weight: 700;
+    line-height: 1.3;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+  }
+  .event:hover { transform: scale(1.04); box-shadow: 0 2px 10px rgba(199,21,133,0.3); }
+  .event.eco   { background: #fce4ec; color: #880e4f; border-left: 3px solid #e91e8c; }
+  .event.sis   { background: #f3e5f5; color: #4a148c; border-left: 3px solid #9c27b0; }
+  .event.termo { background: #fde8ef; color: #7b0031; border-left: 3px solid #c2185b; }
+  .event.lab   { background: #fce4ec; color: #6a0036; border-left: 3px solid #ad1457; }
+  .event.prog  { background: #e0f2fe; color: #0c4a6e; border-left: 3px solid #0891b2; }
+  .event.feriado { background: #f5f5f5; color: #9e9e9e; border-left: 3px solid #bdbdbd; cursor: default; }
+  .event.receso  { background: #f5f5f5; color: #9e9e9e; font-style: italic; cursor: default; }
+  .event.big     { font-size: 0.7em; font-weight: 900; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(199,21,133,0.18);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 8px 40px rgba(199,21,133,0.3);
+    border: 2px solid var(--pink-light);
+    position: relative;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: popIn 0.2s ease;
+  }
+  @keyframes popIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 20px;
+    background: var(--pink-pale); border: none;
+    border-radius: 50%; width: 32px; height: 32px;
+    font-size: 1.1em; cursor: pointer; color: var(--pink-hot);
+    font-weight: 900; display: flex; align-items: center; justify-content: center;
+  }
+  .modal-close:hover { background: var(--pink-light); }
+  .modal-course {
+    font-size: 0.75em; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .modal-title {
+    font-size: 1.2em; font-weight: 900; color: #5a0030; margin-bottom: 14px;
+    line-height: 1.3;
+  }
+  .modal-badge {
+    display: inline-block; padding: 3px 12px; border-radius: 20px;
+    font-size: 0.75em; font-weight: 800; margin-bottom: 16px;
+  }
+  .modal-section { margin-bottom: 14px; }
+  .modal-section h4 {
+    font-size: 0.8em; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--pink-hot); margin-bottom: 5px;
+    border-bottom: 1px solid #fce4ec; padding-bottom: 3px;
+  }
+  .modal-section p, .modal-section li {
+    font-size: 0.88em; line-height: 1.6; color: #5a0030;
+  }
+  .modal-section ul { padding-left: 18px; }
+  .info-row {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;
+  }
+  .info-chip {
+    background: var(--pink-pale); border-radius: 10px;
+    padding: 4px 10px; font-size: 0.78em; font-weight: 700; color: #880e4f;
+  }
+  .no-info { color: #bbb; font-style: italic; font-size: 0.85em; }
+
+  /* SUMMARY TABLE */
+  .table-section { padding: 0 24px 24px; overflow-x: auto; }
+  .table-title {
+    font-size: 1.1em; font-weight: 900; color: var(--pink-hot);
+    padding: 18px 0 12px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.83em; }
+  th {
+    background: #fce4ec; color: #880e4f; padding: 9px 12px;
+    text-align: left; font-weight: 800;
+    border-bottom: 2px solid var(--pink-light);
+  }
+  td { padding: 8px 12px; border-bottom: 1px solid #fce4ec; }
+  tr:hover td { background: #fff5f9; }
+  .tag {
+    display: inline-block; padding: 2px 10px; border-radius: 20px;
+    font-size: 0.78em; font-weight: 800;
+  }
+  .tag.eco   { background: #fce4ec; color: #880e4f; }
+  .tag.sis   { background: #f3e5f5; color: #6a1b9a; }
+  .tag.termo { background: #fde8ef; color: #880e4f; }
+  .tag.lab   { background: #fce4ec; color: #6a0036; }
+  .tag.prog  { background: #e0f2fe; color: #0c4a6e; }
+
+  .sparkle { display: inline; }
+  footer { text-align: center; color: #e091bb; font-size: 0.8em; margin-top: 20px; font-weight: 700; }
+
+  /* ===== TASK RANGES ===== */
+  /* Each task has its own color */
+  .tr-t0p { background: #bae6fd; } /* T0 Prog — azul */
+  .tr-t1p { background: #99f6e4; } /* T1 Prog — teal */
+  .tr-t2p { background: #6ee7b7; } /* T2 Prog — verde */
+  .tr-t3p { background: #bbf7d0; } /* T3 Prog — verde claro */
+  .tr-t1s { background: #e9d5ff; } /* T1 SisInfo — lila */
+  .tr-t2s { background: #c4b5fd; } /* T2 SisInfo — violeta */
+  .tr-t3s { background: #fbcfe8; } /* T3 SisInfo — rosa */
+  .tr-t4s { background: #fde68a; } /* T4 SisInfo — amarillo */
+  .tr-t5s { background: #fca5a5; } /* T5 SisInfo — rojo claro */
+  /* Split: two tasks on same day → left half / right half */
+  .tr-split-t0p-t1s { background: linear-gradient(to right, #bae6fd 50%, #e9d5ff 50%); }
+  .tr-split-t1p-t1s { background: linear-gradient(to right, #99f6e4 50%, #e9d5ff 50%); }
+  .tr-split-t1p-t2s { background: linear-gradient(to right, #99f6e4 50%, #c4b5fd 50%); }
+  .tr-split-t1p-t3s { background: linear-gradient(to right, #99f6e4 50%, #fbcfe8 50%); }
+  .tr-split-t2p-t3s { background: linear-gradient(to right, #6ee7b7 50%, #fbcfe8 50%); }
+  .tr-split-t2p-t4s { background: linear-gradient(to right, #6ee7b7 50%, #fde68a 50%); }
+  .tr-split-t3p-t4s { background: linear-gradient(to right, #bbf7d0 50%, #fde68a 50%); }
+  .tr-split-t3p-t5s { background: linear-gradient(to right, #bbf7d0 50%, #fca5a5 50%); }
+
+  .task-start-badge {
+    display: inline-block;
+    font-size: .6em; font-weight: 900;
+    color: #1e293b;
+    border-radius: 6px; padding: 1px 6px;
+    margin-bottom: 2px; letter-spacing: .3px;
+    border: 1px solid rgba(0,0,0,.15);
+  }
+  .task-start-badge.t0p { background: #7dd3fc; }
+  .task-start-badge.t1p { background: #5eead4; }
+  .task-start-badge.t2p { background: #34d399; }
+  .task-start-badge.t3p { background: #86efac; }
+  .task-start-badge.t1s { background: #d8b4fe; }
+  .task-start-badge.t2s { background: #a78bfa; }
+  .task-start-badge.t3s { background: #f9a8d4; }
+  .task-start-badge.t4s { background: #fcd34d; }
+  .task-start-badge.t5s { background: #f87171; color: white; }
+  .event.task-end { font-weight: 900; }
+
+  /* ===== TRACKER ===== */
+  .acc-hdr { display:flex; align-items:center; gap:10px; padding:12px 20px; cursor:pointer; transition:background .15s; border-bottom:1px solid #fce4ec; }
+  .acc-hdr:hover { background:#fff5f9; }
+  .acc-arr { font-size:.85em; color:var(--pink-hot); font-weight:900; transition:transform .22s; }
+  .acc-closed { transform:rotate(-90deg); }
+  .tg-hdr { padding:9px 20px; font-size:.74em; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--pink-hot); background:#fce4ec; border-bottom:1px solid var(--pink-light); }
+  .tg-note { font-weight:600; color:#c2185b; font-style:italic; text-transform:none; letter-spacing:0; margin-left:6px; font-size:.92em; }
+  .tr-row { display:flex; align-items:center; padding:7px 20px; border-bottom:1px solid #fce4ec; gap:8px; font-size:.82em; }
+  .tr-row:hover { background:#fff9fb; }
+  .tr-label { flex:1; font-weight:700; color:#5a0030; }
+  .tr-date { font-size:.72em; color:#ccc; font-weight:600; min-width:46px; }
+  .tb { width:32px; height:32px; border-radius:50%; border:2px solid transparent; font-size:1em; font-weight:900; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 2px 6px rgba(0,0,0,.08); }
+  .tb.si { background:white; border-color:#c8e6c9; color:#a5d6a7; }
+  .tb.si:hover { border-color:#4caf50; color:#4caf50; transform:scale(1.1); }
+  .tb.si.on { background:linear-gradient(135deg,#43a047,#2e7d32); border-color:#2e7d32; color:white; box-shadow:0 3px 10px rgba(46,125,50,.35); transform:scale(1.08); }
+  .tb.no { background:white; border-color:#ffcdd2; color:#ef9a9a; }
+  .tb.no:hover { border-color:#ef5350; color:#ef5350; transform:scale(1.1); }
+  .tb.no.on { background:linear-gradient(135deg,#e53935,#b71c1c); border-color:#b71c1c; color:white; box-shadow:0 3px 10px rgba(183,28,28,.3); transform:scale(1.08); }
+  .tr-inp { width:52px; padding:3px 5px; border:1.5px solid #fce4ec; border-radius:8px; font-size:.82em; font-weight:800; text-align:center; font-family:'Nunito',sans-serif; }
+  .tr-inp:focus { outline:none; border-color:var(--pink-hot); } .tr-inp:disabled { background:#f5f5f5; color:#ccc; }
+  .tr-wt { font-size:.7em; color:#ccc; font-weight:700; min-width:30px; text-align:right; }
+  .t-sum { padding:12px 20px; background:linear-gradient(135deg,#fff5f9,#fce4ec); border-top:2px solid var(--pink-light); display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  .tc { padding:7px 13px; border-radius:12px; font-weight:900; font-size:.82em; }
+  .tc.ok { background:#e8f5e9; color:#1b5e20; } .tc.warn { background:#fff3e0; color:#e65100; }
+  .tc.bad { background:#ffebee; color:#b71c1c; } .tc.info { background:#e3f2fd; color:#0d47a1; }
+  /* Study plan */
+  .wk-block { border-bottom:1px solid #fce4ec; }
+  .wk-hdr { display:flex; align-items:center; gap:12px; padding:11px 20px; cursor:pointer; transition:background .15s; user-select:none; }
+  .wk-hdr:hover { background:#fff5f9; }
+  .wk-done .wk-hdr { background:#f1f8e9; }
+  .wk-title { font-weight:900; font-size:.88em; color:#5a0030; }
+  .wk-ct { font-size:.74em; color:#aaa; font-weight:700; margin-left:6px; white-space:nowrap; }
+  .wk-bar { flex:1; height:7px; background:#fce4ec; border-radius:4px; min-width:60px; }
+  .wk-fill { height:100%; background:linear-gradient(90deg,#FF1F8F,#C71585); border-radius:4px; transition:width .4s; }
+  .wk-done .wk-fill { background:linear-gradient(90deg,#43a047,#2e7d32); }
+  .wk-arr { font-size:.85em; color:var(--pink-hot); font-weight:900; min-width:14px; transition:transform .2s; }
+  .wk-arr.closed { transform:rotate(-90deg); }
+  .wk-tasks { padding:2px 0 8px; }
+  .task-row { display:flex; align-items:flex-start; gap:10px; padding:8px 20px 8px 16px; transition:background .15s; }
+  .task-row:hover { background:#fff9fb; }
+  .task-done .task-text { text-decoration:line-through; opacity:.45; }
+  .task-cb { width:26px; height:26px; border-radius:50%; border:2px solid #fce4ec; background:white; cursor:pointer; font-weight:900; font-size:.85em; color:#2e7d32; transition:all .2s; flex-shrink:0; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+  .task-cb.on { background:linear-gradient(135deg,#43a047,#2e7d32); border-color:#2e7d32; color:white; box-shadow:0 2px 8px rgba(46,125,50,.3); }
+  .task-cb:hover { border-color:var(--pink-hot); transform:scale(1.12); }
+  .task-body { flex:1; }
+  .task-text { font-size:.84em; font-weight:700; color:#5a0030; line-height:1.4; margin-bottom:4px; }
+  .task-meta { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .task-tag { display:inline-block; border-radius:6px; padding:2px 8px; font-size:.71em; font-weight:800; }
+  .task-link { font-size:.71em; color:var(--pink-hot); font-weight:800; cursor:pointer; text-decoration:underline dotted var(--pink-mid); }
+  .task-link:hover { text-decoration:underline; }
+  .task-warn { background: linear-gradient(135deg,#fff8e1,#fff3cd) !important; border-left: 3px solid #f59e0b !important; }
+  .task-warn .task-text { color: #92400e !important; font-weight: 800 !important; }
+  /* Modal tracking */
+  .mt-sec { border-top:2px solid #fce4ec; margin-top:12px; padding-top:12px; }
+  .mt-sec h4 { font-size:.78em; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--pink-hot); margin-bottom:8px; border-bottom:1px solid #fce4ec; padding-bottom:3px; }
+  .mt-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; font-size:.84em; }
+  /* Schedule */
+  .sch-tbl { width:100%; border-collapse:collapse; min-width:520px; }
+  .sch-tbl th { background:linear-gradient(90deg,#FF1F8F,#C71585); color:white; padding:7px 10px; text-align:center; font-weight:800; font-size:.78em; letter-spacing:.5px; }
+  .mod-td { background:#fce4ec; padding:5px 7px; font-size:.7em; font-weight:800; color:var(--pink-hot); text-align:center; white-space:nowrap; border-right:2px solid var(--pink-light); }
+  .sch-tbl td { border:1px solid #fce4ec; padding:3px; height:54px; width:14%; vertical-align:middle; }
+  .sc { height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; border-radius:7px; padding:4px; font-weight:800; font-size:.71em; line-height:1.3; text-align:center; }
+  .sc-eco { background:#fce4ec; color:#880e4f; } .sc-sis { background:#f3e5f5; color:#4a148c; }
+  .sc-termo { background:#fff3e0; color:#bf360c; } .sc-lab { background:#e3f2fd; color:#0d47a1; }
+  .sc-prog { background:#e0f2fe; color:#0c4a6e; } .sc-ayud { background:#f1f8e9; color:#33691e; }
+  .sc-taller { background:#ede7f6; color:#4a148c; } .sc-t { font-size:.65em; opacity:.75; font-weight:600; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="crown">👑</div>
+  <h1>Calendario Evaluaciones 2026-1</h1>
+  <p>✨ Wendy Costero &nbsp;&bull;&nbsp; Semestre 1, 2026 ✨</p>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#e91e8c"></div>Economia (ICS1513)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#9c27b0"></div>Sistemas de Info (IIC2713)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c2185b"></div>Termodinamica (FIS1523)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ad1457"></div>Lab Termodinamica (FIS0152)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#0891b2"></div>Prog. Avanzada (IIC2233)</div>
+  <div class="legend-item"><div style="width:28px;height:12px;border-radius:3px;background:linear-gradient(to right,#bae6fd 50%,#99f6e4 50%)"></div>T0/T1 Prog</div>
+  <div class="legend-item"><div style="width:28px;height:12px;border-radius:3px;background:linear-gradient(to right,#6ee7b7 50%,#bbf7d0 50%)"></div>T2/T3 Prog</div>
+  <div class="legend-item"><div style="width:28px;height:12px;border-radius:3px;background:linear-gradient(to right,#e9d5ff 50%,#c4b5fd 50%)"></div>T1/T2 SisInfo</div>
+  <div class="legend-item"><div style="width:28px;height:12px;border-radius:3px;background:linear-gradient(to right,#fbcfe8 50%,#fde68a 50%)"></div>T3/T4 SisInfo</div>
+  <div class="legend-item"><div style="width:12px;height:12px;border-radius:3px;background:#fca5a5"></div>T5 SisInfo</div>
+  <div class="legend-item"><div style="width:28px;height:12px;border-radius:3px;background:linear-gradient(to right,#99f6e4 50%,#e9d5ff 50%);border:1px solid #ccc"></div>Día con 2 tareas</div>
+  <div class="legend-item"><span style="font-size:.85em">▶</span>&nbsp;Inicio tarea &nbsp;<span style="font-size:.85em">🏁</span>&nbsp;Entrega</div>
+</div>
+
+<!-- ========== MARZO ========== -->
+<div class="month-block">
+  <div class="month-header">💖 Marzo 2026</div>
+  <div class="calendar-grid">
+    <div class="day-name">Lun</div><div class="day-name">Mar</div><div class="day-name">Mie</div>
+    <div class="day-name">Jue</div><div class="day-name">Vie</div><div class="day-name">Sab</div><div class="day-name">Dom</div>
+
+    <!-- Semana 1: 2-8 mar (inicio lunes) -->
+    <div class="day empty"></div>
+    <div class="day"><div class="day-num">3</div></div>
+    <div class="day"><div class="day-num">4</div></div>
+    <div class="day"><div class="day-num">5</div></div>
+    <div class="day"><div class="day-num">6</div></div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <!-- Semana 2: 9-15 mar -->
+    <div class="day"><div class="day-num">9</div></div>
+    <div class="day"><div class="day-num">10</div></div>
+    <div class="day"><div class="day-num">11</div></div>
+    <div class="day today has-event tr-split-t0p-t1s"><div class="day-num">12 ⭐</div>
+      <div class="task-start-badge t0p">▶ T0 Prog</div>
+      <div class="task-start-badge t1s">▶ T1 SisInfo</div>
+      <div class="event eco" onclick="openModal('c1eco')">C1 Economia</div>
+      <div class="event prog" onclick="openModal('ac1prog')">AC1 Prog. Avanzada</div>
+    </div>
+    <div class="day tr-split-t0p-t1s"><div class="day-num">13</div></div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <!-- Semana 3: 16-22 mar -->
+    <div class="day tr-split-t0p-t1s"><div class="day-num">16</div></div>
+    <div class="day has-event tr-split-t0p-t1s"><div class="day-num">17</div>
+      <div class="event sis" onclick="openModal('ctrl_integr_sis')">Control Integridad SisInfo</div>
+    </div>
+    <div class="day tr-split-t0p-t1s"><div class="day-num">18</div></div>
+    <div class="day has-event tr-split-t0p-t1s"><div class="day-num">19</div>
+      <div class="event eco" onclick="openModal('c2eco')">C2 Economia (asinc.)</div>
+      <div class="event prog" onclick="openModal('ac2prog')">AC2 Prog. Avanzada</div>
+      <div class="event prog task-end" onclick="openModal('t0prog')">🏁 T0 entrega Prog (20:00)</div>
+    </div>
+    <div class="day has-event tr-split-t1p-t1s"><div class="day-num">20</div>
+      <div class="task-start-badge t1p">▶ T1 Prog</div>
+      <div class="event eco" onclick="openModal('eval1taller')">Video Fichaje Taller</div>
+    </div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <!-- Semana 4: 23-29 mar -->
+    <div class="day tr-split-t1p-t1s"><div class="day-num">23</div></div>
+    <div class="day has-event tr-split-t1p-t1s"><div class="day-num">24</div>
+      <div class="event sis task-end" onclick="openModal('t1sis')">🏁 Tarea 1 SisInfo</div>
+    </div>
+    <div class="day tr-t1p"><div class="day-num">25</div></div>
+    <div class="day has-event tr-t1p"><div class="day-num">26</div>
+      <div class="event eco" onclick="openModal('c3eco')">C3 Economia</div>
+      <div class="event prog" onclick="openModal('ac3prog')">AC3 Prog. Avanzada</div>
+    </div>
+    <div class="day tr-t1p"><div class="day-num">27</div></div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <!-- Semana 5: 30 mar -->
+    <div class="day has-event tr-split-t1p-t2s"><div class="day-num">30</div>
+      <div class="task-start-badge t2s">▶ T2 SisInfo</div>
+      <div class="event lab" onclick="openModal('inicio_lab')">Inicio experimentos Lab</div>
+    </div>
+    <div class="day has-event tr-split-t1p-t2s"><div class="day-num">31</div>
+      <div class="event eco" onclick="openModal('c4eco')">C4 Economia</div>
+    </div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day empty"></div><div class="day empty"></div>
+  </div>
+</div>
+
+<!-- ========== ABRIL ========== -->
+<div class="month-block">
+  <div class="month-header">🌸 Abril 2026</div>
+  <div class="calendar-grid">
+    <div class="day-name">Lun</div><div class="day-name">Mar</div><div class="day-name">Mie</div>
+    <div class="day-name">Jue</div><div class="day-name">Vie</div><div class="day-name">Sab</div><div class="day-name">Dom</div>
+
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day empty"></div><div class="day empty"></div>
+    <div class="day"><div class="day-num">1</div></div>
+    <div class="day"><div class="day-num" style="color:#bbb">2</div><div class="event feriado">Jueves Santo</div></div>
+    <div class="day tr-split-t1p-t2s"><div class="day-num" style="color:#888">3</div><div class="event feriado">Viernes Santo</div></div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day has-event tr-split-t1p-t2s"><div class="day-num">6</div>
+      <div class="event lab" onclick="openModal('ctrl_lab')">Control Lectura Lab</div>
+    </div>
+    <div class="day has-event tr-split-t1p-t2s"><div class="day-num">7</div>
+      <div class="event sis task-end" onclick="openModal('t2sis')">🏁 Tarea 2 SisInfo</div>
+    </div>
+    <div class="day tr-split-t1p-t3s"><div class="day-num">8</div>
+      <div class="task-start-badge t3s">▶ T3 SisInfo</div>
+    </div>
+    <div class="day has-event tr-split-t1p-t3s"><div class="day-num">9</div>
+      <div class="event eco" onclick="openModal('c5eco')">C5 Economia (asinc.)</div>
+      <div class="event prog" onclick="openModal('ac4prog')">AC4 Prog. Avanzada</div>
+    </div>
+    <div class="day has-event tr-split-t1p-t3s"><div class="day-num">10</div>
+      <div class="event eco" onclick="openModal('eval1canvas')">Eval 1 Canvas Eco</div>
+      <div class="event prog task-end" onclick="openModal('t1prog')">🏁 T1 entrega Prog (20:00)</div>
+    </div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day tr-split-t2p-t3s"><div class="day-num">13</div>
+      <div class="task-start-badge t2p">▶ T2 Prog</div>
+    </div>
+    <div class="day tr-split-t2p-t3s"><div class="day-num">14</div></div>
+    <div class="day has-event tr-split-t2p-t3s"><div class="day-num">15</div>
+      <div class="event prog big" onclick="openModal('i1prog')">🔵 I1 Prog. Avanzada (17:30)</div>
+    </div>
+    <div class="day has-event tr-split-t2p-t3s"><div class="day-num">16</div>
+      <div class="event eco" onclick="openModal('c6eco')">C6 Economia</div>
+      <div class="event sis big" onclick="openModal('i1sis')">💜 I1 SisInfo (17:30)</div>
+      <div class="event prog" onclick="openModal('ex1prog')">EX1 Prog. Avanzada</div>
+    </div>
+    <div class="day tr-split-t2p-t3s"><div class="day-num">17</div></div>
+    <div class="day has-event tr-split-t2p-t3s"><div class="day-num">18</div>
+      <div class="event eco big" onclick="openModal('i1eco')">💗 INTERR. 1 Eco</div>
+    </div>
+    <div class="day empty"></div>
+
+    <div class="day tr-split-t2p-t3s"><div class="day-num">20</div></div>
+    <div class="day tr-split-t2p-t3s"><div class="day-num">21</div></div>
+    <div class="day tr-split-t2p-t3s"><div class="day-num">22</div></div>
+    <div class="day has-event tr-split-t2p-t3s"><div class="day-num">23</div>
+      <div class="event eco" onclick="openModal('c7eco')">C7 Economia (asinc.)</div>
+      <div class="event prog" onclick="openModal('ac5prog')">AC5 Prog. Avanzada</div>
+    </div>
+    <div class="day tr-split-t2p-t3s"><div class="day-num">24</div></div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day tr-split-t2p-t3s"><div class="day-num">27</div></div>
+    <div class="day has-event tr-split-t2p-t3s"><div class="day-num">28</div>
+      <div class="event sis task-end" onclick="openModal('t3sis')">🏁 Tarea 3 SisInfo</div>
+    </div>
+    <div class="day tr-split-t2p-t4s"><div class="day-num">29</div>
+      <div class="task-start-badge t4s">▶ T4 SisInfo</div>
+    </div>
+    <div class="day has-event tr-split-t2p-t4s"><div class="day-num">30</div>
+      <div class="event eco" onclick="openModal('c8eco')">C8 Economia</div>
+      <div class="event termo big" onclick="openModal('i1termo')">🌡️ I1 Termo (17:30)</div>
+      <div class="event prog" onclick="openModal('ex2prog')">EX2 Prog. Avanzada</div>
+    </div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+  </div>
+</div>
+
+<!-- ========== MAYO ========== -->
+<div class="month-block">
+  <div class="month-header">🌺 Mayo 2026</div>
+  <div class="calendar-grid">
+    <div class="day-name">Lun</div><div class="day-name">Mar</div><div class="day-name">Mie</div>
+    <div class="day-name">Jue</div><div class="day-name">Vie</div><div class="day-name">Sab</div><div class="day-name">Dom</div>
+
+    <div class="day tr-split-t2p-t4s"><div class="day-num" style="color:#888">1</div><div class="event feriado">Dia del Trabajo</div></div>
+    <div class="day tr-split-t2p-t4s"><div class="day-num">2</div></div>
+    <div class="day tr-split-t2p-t4s"><div class="day-num">3</div></div>
+    <div class="day tr-split-t2p-t4s"><div class="day-num">4</div></div>
+    <div class="day has-event tr-split-t2p-t4s"><div class="day-num">5</div>
+      <div class="event eco" onclick="openModal('eval2taller')">Eval 2 Taller Eco</div>
+    </div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day tr-split-t2p-t4s"><div class="day-num">8</div></div>
+    <div class="day tr-split-t2p-t4s"><div class="day-num">9</div></div>
+    <div class="day tr-split-t2p-t4s"><div class="day-num">10</div></div>
+    <div class="day has-event tr-split-t2p-t4s"><div class="day-num">11</div>
+      <div class="event prog" onclick="openModal('ac6prog')">AC6 Prog. Avanzada</div>
+    </div>
+    <div class="day tr-split-t2p-t4s"><div class="day-num">12</div></div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day tr-split-t2p-t4s"><div class="day-num">13</div></div>
+    <div class="day has-event tr-split-t2p-t4s"><div class="day-num">14</div>
+      <div class="event eco" onclick="openModal('c10eco')">C10 Economia</div>
+      <div class="event prog" onclick="openModal('ex3prog')">EX3 Prog. Avanzada</div>
+    </div>
+    <div class="day has-event tr-split-t2p-t4s"><div class="day-num">15</div>
+      <div class="event prog task-end" onclick="openModal('t2prog')">🏁 T2 entrega Prog (20:00)</div>
+    </div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">18</div><div class="event receso">Receso</div>
+      <div class="task-start-badge t3p">▶ T3 Prog</div>
+    </div>
+    <div class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">19</div><div class="event receso">Receso</div></div>
+    <div class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">20</div><div class="event receso">Receso</div></div>
+    <div class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">21</div><div class="event receso">Receso ⚓</div></div>
+    <div class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">22</div><div class="event receso">Receso</div></div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day tr-split-t3p-t4s"><div class="day-num">25</div></div>
+    <div class="day tr-split-t3p-t4s"><div class="day-num">26</div></div>
+    <div class="day tr-split-t3p-t4s"><div class="day-num">27</div></div>
+    <div class="day has-event tr-split-t3p-t4s"><div class="day-num">28</div>
+      <div class="event eco" onclick="openModal('c11eco')">C11 Economia (asinc.)</div>
+      <div class="event sis task-end" onclick="openModal('t4sis')">🏁 Tarea 4 SisInfo</div>
+      <div class="event prog big" onclick="openModal('i2prog')">🔵 I2 Prog. Avanzada (17:30)</div>
+    </div>
+    <div class="day has-event tr-split-t3p-t5s"><div class="day-num">29</div>
+      <div class="task-start-badge t5s">▶ T5 SisInfo</div>
+      <div class="event termo big" onclick="openModal('i2termo')">🌡️ I2 Termo (17:30)</div>
+    </div>
+    <div class="day empty"></div><div class="day empty"></div>
+  </div>
+</div>
+
+<!-- ========== JUNIO ========== -->
+<div class="month-block">
+  <div class="month-header">💎 Junio 2026</div>
+  <div class="calendar-grid">
+    <div class="day-name">Lun</div><div class="day-name">Mar</div><div class="day-name">Mie</div>
+    <div class="day-name">Jue</div><div class="day-name">Vie</div><div class="day-name">Sab</div><div class="day-name">Dom</div>
+
+    <div class="day tr-split-t3p-t5s"><div class="day-num">1</div></div>
+    <div class="day has-event tr-split-t3p-t5s"><div class="day-num">2</div>
+      <div class="event sis big" onclick="openModal('i2sis')">💜 I2 SisInfo (17:30)</div>
+    </div>
+    <div class="day tr-split-t3p-t5s"><div class="day-num">3</div></div>
+    <div class="day has-event tr-split-t3p-t5s"><div class="day-num">4</div>
+      <div class="event eco" onclick="openModal('c12eco')">C12 Economia</div>
+      <div class="event prog" onclick="openModal('ex4prog')">EX4 Prog. Avanzada</div>
+    </div>
+    <div class="day tr-split-t3p-t5s"><div class="day-num">5</div></div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day has-event tr-split-t3p-t5s"><div class="day-num">8</div>
+      <div class="event eco" onclick="openModal('eval3canvas')">Eval 3 Canvas Eco</div>
+    </div>
+    <div class="day tr-split-t3p-t5s"><div class="day-num">9</div></div>
+    <div class="day has-event tr-split-t3p-t5s"><div class="day-num">10</div>
+      <div class="event sis task-end" onclick="openModal('t5sis')">🏁 Tarea 5 SisInfo</div>
+    </div>
+    <div class="day has-event tr-t3p"><div class="day-num">11</div>
+      <div class="event eco" onclick="openModal('c13eco')">C13 Economia (asinc.)</div>
+      <div class="event sis" onclick="openModal('pres_sis')">Pres. SisInfo</div>
+      <div class="event prog" onclick="openModal('ac7prog')">AC7 Prog. Avanzada</div>
+    </div>
+    <div class="day tr-t3p"><div class="day-num" style="color:#888">12</div><div class="event feriado">Sagrado Corazon</div></div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day tr-t3p"><div class="day-num">15</div></div>
+    <div class="day has-event tr-t3p"><div class="day-num">16</div>
+      <div class="event eco big" onclick="openModal('i2eco')">💗 INTERR. 2 Eco</div>
+      <div class="event sis" onclick="openModal('pres_sis')">Pres. SisInfo</div>
+    </div>
+    <div class="day tr-t3p"><div class="day-num">17</div></div>
+    <div class="day has-event tr-t3p"><div class="day-num">18</div>
+      <div class="event eco" onclick="openModal('c14eco')">C14 Economia</div>
+      <div class="event sis" onclick="openModal('pres_sis')">Pres. SisInfo</div>
+    </div>
+    <div class="day has-event tr-t3p"><div class="day-num">19</div>
+      <div class="event prog task-end" onclick="openModal('t3prog')">🏁 T3 entrega Prog (20:00)</div>
+    </div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day"><div class="day-num">22</div></div>
+    <div class="day has-event"><div class="day-num">23</div>
+      <div class="event sis" onclick="openModal('pres_sis')">Pres. SisInfo</div>
+    </div>
+    <div class="day"><div class="day-num">24</div></div>
+    <div class="day has-event"><div class="day-num">25</div>
+      <div class="event eco" onclick="openModal('c15eco')">C15 Economia (asinc.)</div>
+      <div class="event sis" onclick="openModal('pres_sis')">Pres. SisInfo</div>
+    </div>
+    <div class="day has-event"><div class="day-num">26</div>
+      <div class="event lab">Fin Lab Termo 🎀</div>
+    </div>
+    <div class="day empty"></div><div class="day empty"></div>
+
+    <div class="day has-event"><div class="day-num">29</div></div>
+    <div class="day has-event"><div class="day-num">30</div>
+      <div class="event termo big" onclick="openModal('ex_termo')">🌡️ Examen Termo (08:20)</div>
+      <div class="event prog big" onclick="openModal('ex_prog')">🔵 Examen Prog. Av. (13:30)</div>
+    </div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day empty"></div><div class="day empty"></div>
+  </div>
+</div>
+
+<!-- ========== JULIO ========== -->
+<div class="month-block">
+  <div class="month-header">✨ Julio 2026</div>
+  <div class="calendar-grid">
+    <div class="day-name">Lun</div><div class="day-name">Mar</div><div class="day-name">Mie</div>
+    <div class="day-name">Jue</div><div class="day-name">Vie</div><div class="day-name">Sab</div><div class="day-name">Dom</div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day empty"></div><div class="day empty"></div>
+    <div class="day"><div class="day-num">1</div></div>
+    <div class="day"><div class="day-num">2</div></div>
+    <div class="day has-event"><div class="day-num">3</div>
+      <div class="event sis" onclick="openModal('ex_sis')">Examen SisInfo (si aplica)</div>
+    </div>
+    <div class="day has-event"><div class="day-num">4</div>
+      <div class="event eco big" onclick="openModal('ex_eco')">💗 EXAMEN Eco</div>
+    </div>
+    <div class="day empty"></div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day has-event"><div class="day-num">9</div></div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day has-event"><div class="day-num">9</div></div>
+    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+  </div>
+</div>
+
+<!-- ========== TABLA RESUMEN ========== -->
+<div class="month-block">
+  <div class="month-header">📋 Resumen de Evaluaciones</div>
+  <div class="table-section">
+    <table>
+      <tr><th>Fecha</th><th>Curso</th><th>Evaluacion</th><th>Info</th></tr>
+      <tr><td>Jue 12 Mar</td><td><span class="tag prog">Prog. Avanzada</span></td><td>Actividad 1 (en clase)</td><td><button onclick="openModal('ac1prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Jue 12 Mar</td><td><span class="tag eco">Economia</span></td><td>Control 1 (presencial)</td><td><button onclick="openModal('c1eco')" style="background:var(--pink-pale);border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:var(--pink-hot);font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Mar 17 Mar</td><td><span class="tag sis">SisInfo</span></td><td>Control Integridad Academica</td><td><button onclick="openModal('ctrl_integr_sis')" style="background:#f3e5f5;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#6a1b9a;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Jue 19 Mar</td><td><span class="tag prog">Prog. Avanzada</span></td><td>T0 — Entrega (20:00)</td><td><button onclick="openModal('t0prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Mar 24 Mar</td><td><span class="tag sis">SisInfo</span></td><td>Tarea 1</td><td><button onclick="openModal('t1sis')" style="background:#f3e5f5;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#6a1b9a;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Vie 20 Mar</td><td><span class="tag eco">Economia</span></td><td>Video Fichaje Taller de Escritura</td><td>—</td></tr>
+      <tr><td>Vie 10 Abr</td><td><span class="tag prog">Prog. Avanzada</span></td><td>T1 — Entrega (20:00)</td><td><button onclick="openModal('t1prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Mié 15 Abr</td><td><span class="tag prog">Prog. Avanzada</span></td><td><b>Interrogacion 1</b> (17:30)</td><td><button onclick="openModal('i1prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Jue 16 Abr</td><td><span class="tag sis">SisInfo</span></td><td><b>Interrogacion 1</b></td><td><button onclick="openModal('i1sis')" style="background:#f3e5f5;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#6a1b9a;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Sab 18 Abr</td><td><span class="tag eco">Economia</span></td><td><b>Interrogacion 1</b></td><td><button onclick="openModal('i1eco')" style="background:var(--pink-pale);border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:var(--pink-hot);font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Jue 30 Abr</td><td><span class="tag termo">Termodinamica</span></td><td><b>Interrogacion 1</b></td><td><button onclick="openModal('i1termo')" style="background:var(--pink-pale);border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#880e4f;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Vie 15 May</td><td><span class="tag prog">Prog. Avanzada</span></td><td>T2 — Entrega (20:00)</td><td><button onclick="openModal('t2prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Jue 28 May</td><td><span class="tag prog">Prog. Avanzada</span></td><td><b>Interrogacion 2</b> (17:30)</td><td><button onclick="openModal('i2prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Jue 28 May</td><td><span class="tag sis">SisInfo</span></td><td>Tarea 4</td><td>—</td></tr>
+      <tr><td>Vie 29 May</td><td><span class="tag termo">Termodinamica</span></td><td><b>Interrogacion 2</b></td><td><button onclick="openModal('i2termo')" style="background:var(--pink-pale);border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#880e4f;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Mar 02 Jun</td><td><span class="tag sis">SisInfo</span></td><td><b>Interrogacion 2</b></td><td><button onclick="openModal('i2sis')" style="background:#f3e5f5;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#6a1b9a;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Mar 16 Jun</td><td><span class="tag eco">Economia</span></td><td><b>Interrogacion 2</b></td><td><button onclick="openModal('i2eco')" style="background:var(--pink-pale);border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:var(--pink-hot);font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Vie 19 Jun</td><td><span class="tag prog">Prog. Avanzada</span></td><td>T3 — Entrega (20:00)</td><td><button onclick="openModal('t3prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Mar 30 Jun</td><td><span class="tag prog">Prog. Avanzada</span></td><td><b>Examen Final</b> (13:30–17:20)</td><td><button onclick="openModal('ex_prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Mar 30 Jun</td><td><span class="tag termo">Termodinamica</span></td><td><b>Examen Final</b> (08:20)</td><td><button onclick="openModal('ex_termo')" style="background:var(--pink-pale);border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#880e4f;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Vie 03 Jul</td><td><span class="tag sis">SisInfo</span></td><td>Examen (solo si falta con justif.)</td><td><button onclick="openModal('ex_sis')" style="background:#f3e5f5;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#6a1b9a;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+      <tr><td>Sab 04 Jul</td><td><span class="tag eco">Economia</span></td><td><b>Examen Final</b></td><td><button onclick="openModal('ex_eco')" style="background:var(--pink-pale);border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:var(--pink-hot);font-weight:800;font-size:0.8em">Ver info</button></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ========== MODAL ========== -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ========== PLAN DE ACCIÓN ========== -->
+<div class="month-block" style="margin-bottom:28px">
+  <div class="month-header">📚 Plan de Acción — Próximas 3 Semanas</div>
+  <div id="splan"></div>
+</div>
+
+<!-- ========== SCHEDULE ========== -->
+<div class="month-block" style="margin-bottom:28px">
+  <div class="month-header">🗓️ Horario de Clases 2026-1</div>
+  <div style="overflow-x:auto;padding:20px 20px 0">
+    <table class="sch-tbl">
+      <thead><tr>
+        <th style="min-width:72px">Módulo</th>
+        <th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th><th>Sábado</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="mod-td"><b>1</b><br>08:20<br>09:30</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td class="mod-td"><b>2</b><br>09:40<br>10:50</td>
+          <td></td>
+          <td><div class="sc sc-sis">IIC2713-2<br><span class="sc-t">Cátedra</span></div></td>
+          <td></td>
+          <td><div class="sc sc-sis">IIC2713-2<br><span class="sc-t">Cátedra</span></div></td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td class="mod-td"><b>3</b><br>11:00<br>12:10</td>
+          <td></td>
+          <td><div class="sc sc-eco">ICS1513-1<br><span class="sc-t">Cátedra</span></div></td>
+          <td></td>
+          <td><div class="sc sc-eco">ICS1513-1<br><span class="sc-t">Cátedra</span></div></td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td class="mod-td"><b>4</b><br>12:20<br>13:30</td>
+          <td><div class="sc sc-termo">FIS1523-7<br><span class="sc-t">Cátedra</span></div></td>
+          <td></td>
+          <td><div class="sc sc-termo">FIS1523-7<br><span class="sc-t">Cátedra</span></div></td>
+          <td></td>
+          <td><div class="sc sc-ayud">FIS1523-7<br><span class="sc-t">Ayudantía</span></div></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="mod-td"><b>5</b><br>14:50<br>16:00</td>
+          <td><div class="sc sc-lab">FIS0152-11<br><span class="sc-t">Laboratorio</span></div></td>
+          <td><div class="sc sc-ayud">IIC2233-1<br><span class="sc-t">Ayudantía</span></div></td>
+          <td></td>
+          <td><div class="sc sc-prog">IIC2233-1<br><span class="sc-t">Cátedra</span></div></td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td class="mod-td"><b>6</b><br>16:10<br>17:20</td>
+          <td><div class="sc sc-taller">ICS1513-1<br><span class="sc-t">Taller</span></div></td>
+          <td></td>
+          <td><div class="sc sc-ayud">IIC2713-2<br><span class="sc-t">Ayudantía</span></div></td>
+          <td><div class="sc sc-prog">IIC2233-1<br><span class="sc-t">Cátedra</span></div></td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td class="mod-td"><b>7–9</b><br>17:30+</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="padding:14px 20px 20px">
+    <div style="font-size:.76em;font-weight:900;color:var(--pink-hot);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Cursos inscritos</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <span class="tag sis" style="padding:4px 12px">IIC2713-2 — Sistemas de Información (10 cr.)</span>
+      <span class="tag eco" style="padding:4px 12px">ICS1513-1 — Introducción a la Economía (10 cr.)</span>
+      <span class="tag termo" style="padding:4px 12px">FIS1523-7 — Termodinámica (10 cr.)</span>
+      <span class="tag lab" style="padding:4px 12px">FIS0152-11 — Lab. Termodinámica (0 cr.)</span>
+      <span class="tag prog" style="padding:4px 12px">IIC2233-1 — Programación Avanzada (10 cr.)</span>
+      <span style="background:#f1f8e9;color:#33691e;border-radius:20px;padding:4px 12px;font-size:.78em;font-weight:800">DPT8415-1 — Sel. Halterofilia Mujeres (5 cr.)</span>
+    </div>
+    <div style="margin-top:6px;font-size:.72em;color:#bbb;font-weight:700">Total: 45 créditos — 6 cursos</div>
+  </div>
+</div>
+
+<!-- ========== TRACKER (collapsed) ========== -->
+<div class="month-block" style="margin-bottom:28px">
+  <div class="month-header" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center" onclick="toggleTracker()">
+    <span>📊 Seguimiento de Notas 2026-1</span>
+    <span id="tracker-arrow" style="font-size:.9em;transition:transform .25s;display:inline-block">▾</span>
+  </div>
+  <div id="tracker-body" style="display:none">
+    <div id="t-eco"></div>
+    <div id="t-sis"></div>
+    <div id="t-termo"></div>
+    <div id="t-prog"></div>
+  </div>
+</div>
+
+<footer>✨ Hecho con amor y mucho rosa 💖 2026 ✨</footer>
+
+<script>
+const BASE = 'https://cursos.canvas.uc.cl';
+// Helper para links de Canvas
+const f = (courseId, fileId, name) => `<a href="${BASE}/courses/${courseId}/files/${fileId}" target="_blank" style="color:var(--pink-hot);font-weight:700">📄 ${name}</a>`;
+const p = (courseId, slug, name) => `<a href="${BASE}/courses/${courseId}/pages/${slug}" target="_blank" style="color:var(--pink-hot);font-weight:700">📄 ${name}</a>`;
+const a = (courseId, assignId, name) => `<a href="${BASE}/courses/${courseId}/assignments/${assignId}" target="_blank" style="color:var(--pink-hot);font-weight:700">📝 ${name}</a>`;
+
+const data = {
+  c1eco: {
+    course: 'Economia — ICS1513', courseClass: 'eco',
+    title: 'Control 1 — Tema 00, 01 y 02',
+    date: 'Jueves 12 de Marzo, 2026', due: '14:13 hrs',
+    points: '5 puntos',
+    chips: ['Presencial', '10 minutos', 'Canvas', 'Con apuntes', 'Individual'],
+    sections: [
+      { title: 'Temas evaluados', content: '<ul><li><b>Tema 00:</b> Aspectos administrativos del curso</li><li><b>Tema 01:</b> Fundamentos de la Economía y sus Principios</li><li><b>Tema 02:</b> Modelos Básicos (FPP, ventajas comparativas)</li></ul>' },
+      { title: 'Formato', content: '<p>5 preguntas de opción múltiple. Cada pregunta tiene una única respuesta correcta. <b>Las respuestas incorrectas NO penalizan.</b></p>' },
+      { title: 'Condiciones', content: '<p>Estrictamente individual dentro de la sala de clases. Permitido revisar apuntes. No se permiten consultas al profesor ni a otras personas.</p>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${f(101712,14257455,'Tema 00 — Presentación y Programa del Curso')}</li>
+        <li>${f(101712,14222138,'Tema 01 — La Economía y sus Principios (PPT)')}</li>
+        <li>${f(101712,14222139,'Tema 01 — Lectura')}</li>
+        <li>${f(101712,14308935,'Tema 02 — Modelos Básicos (PPT)')}</li>
+        <li>${f(101712,14222140,'Tema 02 — Modelos Básicos (Lectura)')}</li>
+        <li>${f(101712,14222143,'Tema 02 — FPP (PDF)')}</li>
+      </ul>` },
+    ]
+  },
+  ctrl_integr_sis: {
+    course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
+    title: 'Control de Integridad Académica',
+    date: 'Martes 17 de Marzo, 2026', due: 'en clase',
+    points: 'Hasta 6 puntos (participación)',
+    chips: ['Presencial', 'Canvas', 'Individual'],
+    sections: [
+      { title: 'Descripcion', content: '<p>Control en clase sobre la política de integridad académica del curso. Se realiza en Canvas durante la sesión presencial.</p>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${f(98532,14250165,'Política de Integridad Académica 2026 (PDF)')}</li>
+      </ul>` },
+      { title: 'Importante', content: '<p>Solo pueden realizarlo estudiantes que asistieron presencialmente. Entregar la actividad de una clase a la que no asististe es una falta de integridad académica.</p>' },
+    ]
+  },
+  eval1taller: {
+    course: 'Economia — ICS1513', courseClass: 'eco',
+    title: 'Video Fichaje — Taller de Escritura (20%)',
+    date: 'Viernes 20 de Marzo, 2026', due: '23:59 hrs',
+    points: '20% de la nota del Taller',
+    chips: ['Online', 'Subir video o URL'],
+    sections: [
+      { title: 'Descripcion', content: '<p>Primera evaluación del Taller de Escritura Académica. Corresponde a un video de fichaje.</p>' },
+      { title: 'Material publicado', content: `<ul>
+        <li>${f(101712,14285135,'Taller — Sesión 1 (apoyo visual)')}</li>
+        <li>${f(101712,14317788,'Instrucciones y Rúbrica — Video Fichaje 2026-1')}</li>
+        <li>${f(101712,14317793,'Rúbrica actividades de participación 2026-1')}</li>
+        <li>${a(101712,581496,'Acceder a la entrega en Canvas')}</li>
+      </ul>` },
+    ]
+  },
+  t1sis: {
+    course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
+    title: 'Tarea 1',
+    date: 'Martes 24 de Marzo, 2026', due: 'Por confirmar (ver Canvas)',
+    points: 'Grupal — ponderada con EVP',
+    chips: ['Grupal', 'Evaluación de pares (EVP)', 'Política de atrasos'],
+    sections: [
+      { title: 'Estado del enunciado', content: '<p class="no-info">El enunciado de la Tarea 1 no ha sido publicado aún en Canvas.</p>' },
+      { title: 'Temas probables', content: '<p>Según el calendario: <b>Introducción a SI, Procesos de Negocio, y Organización y Estrategia.</b></p>' },
+      { title: 'Material de las clases cubiertas', content: `<ul>
+        <li>${f(98532,14194001,'02a — Introducción a SI')}</li>
+        <li>${f(98532,14194002,'02b — Introducción a SI')}</li>
+        <li>${f(98532,14299654,'03 — Procesos de Negocios')}</li>
+        <li>${f(98532,14299697,'04 — Organización y Estrategia')}</li>
+      </ul>` },
+      { title: 'Política de atrasos', content: '<ul><li><b>&lt; 24 hrs:</b> nota × 0.85</li><li><b>24–48 hrs:</b> nota × 0.65</li><li><b>&gt; 48 hrs:</b> nota 1.0</li></ul>' },
+      { title: 'Evaluación de pares (EVP)', content: '<p>Luego de recibir la nota grupal, se realiza EVP individual y anónima. Nota final = 1 + (Nota Grupal − 1) × (1 + EVP) / 2.</p>' },
+    ]
+  },
+  c2eco: {
+    course: 'Economia — ICS1513', courseClass: 'eco',
+    title: 'Control 2 (Asincrónico)',
+    date: 'Jueves 19 de Marzo, 2026', due: 'Asincrónico',
+    points: 'Hasta 6 puntos (participación)',
+    chips: ['Asincrónico', 'Canvas', 'Con apuntes'],
+    sections: [
+      { title: 'Temas evaluados', content: '<p>Módulo 2: Funcionamiento de los Mercados (Temas 04 y 05).</p>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${f(101712,14222166,'Tema 04 — Las Fuerzas del Mercado')}</li>
+        <li>${f(101712,14222168,'Tema 05 — Elasticidad')}</li>
+        <li>${f(101712,14222167,'Tema 05 — Elasticidad (Lectura)')}</li>
+      </ul>` },
+    ]
+  },
+  c3eco: {
+    course: 'Economia — ICS1513', courseClass: 'eco',
+    title: 'Control 3 (Presencial)',
+    date: 'Jueves 26 de Marzo, 2026', due: 'en clase',
+    points: 'Hasta 6 puntos (participación)',
+    chips: ['Presencial', 'Canvas', '10 min'],
+    sections: [
+      { title: 'Temas evaluados', content: '<p>Módulo 3: Eficiencia, Bienestar y Políticas de Gobierno (Temas 06–09).</p>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${f(101712,14222158,'Tema 06 — Eficiencia de Mercado')}</li>
+        <li>${f(101712,14222155,'Tema 06 — Complemento Lectura')}</li>
+        <li>${f(101712,14222159,'Tema 07 — Control Precios, Impuestos y Subsidios')}</li>
+        <li>${f(101712,14222151,'Tema 07 (PDF complemento)')}</li>
+        <li>${f(101712,14222156,'Tema 08 — Comercio Internacional')}</li>
+        <li>${f(101712,14222157,'Tema 08 — Comercio Internacional (Lectura)')}</li>
+        <li>${f(101712,14222152,'Tema 09 — Sistema de Impuestos')}</li>
+      </ul>` },
+    ]
+  },
+  c4eco: {
+    course: 'Economia — ICS1513', courseClass: 'eco',
+    title: 'Control 4 (Presencial)',
+    date: 'Martes 31 de Marzo, 2026', due: 'en clase',
+    points: 'Hasta 6 puntos (participación)',
+    chips: ['Presencial', 'Canvas', '10 min'],
+    sections: [
+      { title: 'Temas evaluados', content: '<p>Módulo 3: Eficiencia, Bienestar y Políticas de Gobierno (continuación, Temas 06–09).</p>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${f(101712,14222158,'Tema 06 — Eficiencia de Mercado')}</li>
+        <li>${f(101712,14222159,'Tema 07 — Control Precios, Impuestos y Subsidios')}</li>
+        <li>${f(101712,14222156,'Tema 08 — Comercio Internacional')}</li>
+        <li>${f(101712,14222152,'Tema 09 — Sistema de Impuestos')}</li>
+      </ul>` },
+    ]
+  },
+  inicio_lab: {
+    course: 'Lab Termodinámica — FIS0152', courseClass: 'lab',
+    title: 'Inicio de Experimentos de Laboratorio',
+    date: '30 de Marzo, 2026', due: '—',
+    points: '5 experimentos durante el semestre',
+    chips: ['Grupal', 'Presencial', 'Grupos A y B'],
+    sections: [
+      { title: 'Experimentos del semestre', content: '<ul><li>Exp 1: Expansión Térmica</li><li>Exp 2: Conductividad Térmica</li><li>Exp 3: Índice Adiabático</li><li>Exp 4: Máquina Térmica</li><li>Exp 5: Efecto Peltier</li></ul>' },
+      { title: 'Material de referencia', content: `<ul>
+        <li>${p(98034,'fechas-importantes','Fechas importantes del curso')}</li>
+        <li>${p(98034,'funcionamiento-del-curso','Funcionamiento del curso')}</li>
+        <li>${p(98034,'controles-de-entrada','Controles de entrada (info)')}</li>
+      </ul>` },
+      { title: 'Importante', content: '<p>Las fechas exactas dependen de tu <b>sección y grupo (A o B)</b>. Los experimentos van del 30 Mar al 26 Jun. Semana de receso 18-22 Mayo = sin laboratorio.</p>' },
+    ]
+  },
+  ctrl_lab: {
+    course: 'Lab Termodinámica — FIS0152', courseClass: 'lab',
+    title: 'Control Lectura — Instrucción Laboratorios',
+    date: 'Due 6 de Abril, 2026', due: '06-Abr (23:59)',
+    points: '6 puntos',
+    chips: ['Online', 'Herramienta externa Canvas'],
+    sections: [
+      { title: 'Descripcion', content: '<p>Control de lectura sobre las instrucciones generales de los laboratorios. Se rinde a través de una herramienta externa en Canvas.</p>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${p(98034,'funcionamiento-del-curso','Funcionamiento del curso')}</li>
+        <li>${p(98034,'controles-de-entrada','Controles de entrada (qué son y cómo funcionan)')}</li>
+        <li>${a(98034,578432,'Acceder al control en Canvas')}</li>
+      </ul>` },
+    ]
+  },
+  t2sis: {
+    course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
+    title: 'Tarea 2',
+    date: 'Martes 7 de Abril, 2026', due: 'Por confirmar',
+    points: 'Grupal — ponderada con EVP',
+    chips: ['Grupal', 'Evaluación de pares (EVP)', 'Política de atrasos'],
+    sections: [
+      { title: 'Estado del enunciado', content: '<p class="no-info">Enunciado no publicado aún.</p>' },
+      { title: 'Temas probables', content: '<p>Según el calendario: <b>Aplicaciones Empresariales (ERP, CRM, SCM)</b>, Mercados y Plataformas Digitales, Gestión del Conocimiento.</p>' },
+      { title: 'Política de atrasos', content: '<ul><li><b>&lt; 24 hrs:</b> nota × 0.85</li><li><b>24–48 hrs:</b> nota × 0.65</li><li><b>&gt; 48 hrs:</b> nota 1.0</li></ul>' },
+    ]
+  },
+  c5eco: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Control 5 (Asincrónico)',
+    date:'Jue 9 Abr', due:'asincrónico', points:'Hasta 6 pts', chips:['Asincrónico'],
+    sections:[
+      { title:'Temas', content:'<p>Módulo 3: cierre (Temas 06–09) / Inicio Módulo 4: Teoría del Consumidor.</p>' },
+      { title:'Material de estudio', content:`<ul>
+        <li>${f(101712,14222158,'Tema 06 — Eficiencia de Mercado')}</li>
+        <li>${f(101712,14222152,'Tema 09 — Sistema de Impuestos')}</li>
+      </ul>` },
+    ]
+  },
+  eval1canvas: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Evaluación 1 — Canvas (Taller)',
+    date:'Vie 10 Abr', due:'todo el día', points:'—', chips:['Asincrónico','Canvas'],
+    sections:[
+      { title:'Descripcion', content:'<p>Evaluación del Taller de Escritura Académica. No hay más detalles publicados aún.</p>' },
+      { title:'Material publicado', content:`<ul>
+        <li>${f(101712,14285135,'Taller — Sesión 1 (apoyo visual)')}</li>
+        <li>${f(101712,14299132,'Programa del Taller 2026-1')}</li>
+      </ul>` },
+    ]
+  },
+  c6eco: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Control 6 (Presencial)',
+    date:'Jue 16 Abr', due:'en clase', points:'Hasta 6 pts', chips:['Presencial'],
+    sections:[
+      { title:'Temas', content:'<p>Módulo 4: Teoría del Consumidor.</p>' },
+      { title:'Material de estudio', content:'<p class="no-info">Los PDFs del Módulo 4 no están publicados aún en Canvas.</p>' },
+    ]
+  },
+  i1sis: {
+    course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
+    title: 'Interrogación 1',
+    date: 'Jueves 16 de Abril, 2026', due: '17:30 hrs',
+    points: '30% de NE (45% de nota final)',
+    chips: ['Presencial', 'Individual', '2 horas', 'Formulario incluido'],
+    sections: [
+      { title: 'Temas evaluados', content: '<ul><li>Introducción a Sistemas de Información</li><li>Procesos de Negocio y Funciones de los SI</li><li>Organización y Estrategia (cadena del valor, ventajas competitivas)</li><li>Modelamiento BPM / BPMN</li><li>Aplicaciones Empresariales: ERP, CRM, SCM</li><li>Mercados y Plataformas Digitales</li></ul>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${f(98532,14194001,'02a — Introducción a SI')}</li>
+        <li>${f(98532,14194002,'02b — Introducción a SI')}</li>
+        <li>${f(98532,14299654,'03 — Procesos de Negocios (BPM)')}</li>
+        <li>${f(98532,14299697,'04 — Organización y Estrategia')}</li>
+      </ul>` },
+      { title: 'Condiciones', content: '<p>Individual y presencial. Prohibido uso de IA. No hacer sin justificación = nota 1.0.</p>' },
+    ]
+  },
+  i1eco: {
+    course: 'Economia — ICS1513', courseClass: 'eco',
+    title: 'Interrogación 1',
+    date: 'Sábado 18 de Abril, 2026', due: 'Horario escuela',
+    points: '30% de NE',
+    chips: ['Presencial', 'Individual'],
+    sections: [
+      { title: 'Temas evaluados', content: '<ul><li>Módulo 1: Fundamentos de la Economía (Temas 01–03)</li><li>Módulo 2: Funcionamiento de los Mercados (Temas 04–05)</li><li>Módulo 3: Eficiencia, Bienestar y Políticas de Gobierno (Temas 06–09)</li></ul>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${f(101712,14222138,'Tema 01 — La Economía y sus Principios')}</li>
+        <li>${f(101712,14222139,'Tema 01 — Lectura')}</li>
+        <li>${f(101712,14308935,'Tema 02 — Modelos Básicos')}</li>
+        <li>${f(101712,14222140,'Tema 02 — Lectura')}</li>
+        <li>${f(101712,14222141,'Tema 03 — Importancia del Comercio Internacional')}</li>
+        <li>${f(101712,14222166,'Tema 04 — Las Fuerzas del Mercado')}</li>
+        <li>${f(101712,14222168,'Tema 05 — Elasticidad')}</li>
+        <li>${f(101712,14222167,'Tema 05 — Lectura')}</li>
+        <li>${f(101712,14222158,'Tema 06 — Eficiencia de Mercado')}</li>
+        <li>${f(101712,14222159,'Tema 07 — Control Precios, Impuestos y Subsidios')}</li>
+        <li>${f(101712,14222156,'Tema 08 — Comercio Internacional')}</li>
+        <li>${f(101712,14222152,'Tema 09 — Sistema de Impuestos')}</li>
+      </ul>` },
+      { title: 'Condiciones', content: '<p>Individual y presencial. Código de Honor UC. Sin consultas durante la prueba.</p>' },
+    ]
+  },
+  c7eco: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Control 7 (Asincrónico)',
+    date:'Jue 23 Abr', due:'asincrónico', points:'Hasta 6 pts', chips:['Asincrónico'],
+    sections:[
+      { title:'Temas', content:'<p>Módulo 5: Teoría del Productor.</p>' },
+      { title:'Material de estudio', content:'<p class="no-info">Los PDFs del Módulo 5 no están publicados aún en Canvas.</p>' },
+    ]
+  },
+  t3sis: {
+    course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
+    title: 'Tarea 3',
+    date: 'Martes 28 de Abril, 2026', due: 'Por confirmar',
+    points: 'Grupal — ponderada con EVP',
+    chips: ['Grupal', 'EVP', 'Política de atrasos'],
+    sections: [
+      { title: 'Estado del enunciado', content: '<p class="no-info">Enunciado no publicado aún.</p>' },
+      { title: 'Temas probables', content: '<p>Infraestructura TI, Redes y Cloud Computing, Business Intelligence (BI).</p>' },
+      { title: 'Política de atrasos', content: '<ul><li><b>&lt; 24 hrs:</b> nota × 0.85</li><li><b>24–48 hrs:</b> nota × 0.65</li><li><b>&gt; 48 hrs:</b> nota 1.0</li></ul>' },
+    ]
+  },
+  c8eco: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Control 8 (Presencial)',
+    date:'Jue 30 Abr', due:'en clase', points:'Hasta 6 pts', chips:['Presencial'],
+    sections:[
+      { title:'Temas', content:'<p>Módulo 5: Teoría del Productor (continuación).</p>' },
+      { title:'Material de estudio', content:'<p class="no-info">Los PDFs del Módulo 5 no están publicados aún en Canvas.</p>' },
+    ]
+  },
+  i1termo: {
+    course: 'Termodinámica — FIS1523', courseClass: 'termo',
+    title: 'Interrogación 1',
+    date: 'Jueves 10 de Abril, 2026', due: '17:30 hrs',
+    points: '30% de NFC',
+    chips: ['Presencial', 'Individual', '2 horas máx.', 'Desarrollo', 'Con formulario'],
+    sections: [
+      { title: 'Temas evaluados', content: '<ul><li>Introducción: temperatura, trabajo, expansión-compresión, ley cero</li><li>1ra Ley: energía interna, entalpía, calor sensible/latente, gases ideales y reales</li><li>Ecuaciones de estado: Van der Waals, Redlich-Kwong, factor de compresibilidad</li></ul>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${f(103007,14152932,'01 — Introducción')}</li>
+        <li>${f(103007,14152939,'02 — Temperatura y Ley Cero')}</li>
+        <li>${f(103007,14152642,'03 — Dilatación Térmica')}</li>
+        <li>${f(103007,14152952,'04 — Presión')}</li>
+        <li>${f(103007,14153017,'05 — Energía, Balance y Primera Ley')}</li>
+        <li>${f(103007,14152657,'05 — Notas energía y trabajo (PDF)')}</li>
+        <li>${f(103007,14152663,'05 — Ejemplos')}</li>
+        <li>${f(103007,14152643,'06 — Sustancias Puras')}</li>
+        <li>${f(103007,14152644,'07 — Entalpía, Ejemplos y Tablas')}</li>
+        <li>${f(103007,14152645,'08 — Gases Ideales')}</li>
+        <li>${f(103007,14152646,'09 — Ejemplos Gases')}</li>
+        <li>${f(103007,14152648,'10 — Sistemas Cerrados 1')}</li>
+        <li>${f(103007,14152640,'10 — Sistemas Cerrados 2 (Calores Específicos)')}</li>
+        <li>${f(103007,14152649,'10 — Sistemas Cerrados 3 (Proceso Adiabático)')}</li>
+        <li>${f(103007,14152647,'11 — Volumen de Control')}</li>
+      </ul>` },
+      { title: 'Condiciones', content: '<ul><li>Individual, de desarrollo, con formulario</li><li>No hay pruebas recuperativas</li><li>Sin preguntas durante la prueba</li></ul>' },
+      { title: 'Fórmula nota final', content: '<p>NF = 0.7 × NFC + 0.3 × NL (si ambas ≥ 4.0)<br>NFC = 0.3×I1 + 0.3×I2 + 0.4×Examen</p>' },
+    ]
+  },
+  eval2taller: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Evaluación 2 — Taller de Escritura',
+    date:'Lun 4 Mayo', due:'—', points:'—', chips:['Taller Escritura'],
+    sections:[
+      { title:'Estado', content:'<p class="no-info">No hay detalles publicados en Canvas aún.</p>' },
+      { title:'Material del taller', content:`<ul>
+        <li>${f(101712,14299132,'Programa del Taller 2026-1')}</li>
+      </ul>` },
+    ]
+  },
+  c10eco: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Control 10 (Presencial)',
+    date:'Jue 14 May', due:'en clase', points:'Hasta 6 pts', chips:['Presencial'],
+    sections:[
+      { title:'Temas', content:'<p>Módulo 6: Fallas de Mercado I / inicio Módulo 7: Fallas de Mercado II.</p>' },
+      { title:'Material de estudio', content:'<p class="no-info">Los PDFs de los Módulos 6 y 7 no están publicados aún en Canvas.</p>' },
+    ]
+  },
+  c11eco: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Control 11 (Asincrónico)',
+    date:'Jue 28 May', due:'asincrónico', points:'Hasta 6 pts', chips:['Asincrónico'],
+    sections:[
+      { title:'Temas', content:'<p>Módulo 7: Fallas de Mercado II (continuación).</p>' },
+      { title:'Material de estudio', content:'<p class="no-info">Los PDFs del Módulo 7 no están publicados aún en Canvas.</p>' },
+    ]
+  },
+  t4sis: {
+    course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
+    title: 'Tarea 4',
+    date: 'Jueves 28 de Mayo, 2026', due: 'Por confirmar',
+    points: 'Grupal — ponderada con EVP',
+    chips: ['Grupal', 'EVP', 'Política de atrasos'],
+    sections: [
+      { title: 'Estado del enunciado', content: '<p class="no-info">Enunciado no publicado aún.</p>' },
+      { title: 'Temas probables', content: '<p>Seguridad TI, Inteligencia Artificial en las organizaciones, AI Theory y AI Frameworks.</p>' },
+      { title: 'Política de atrasos', content: '<ul><li><b>&lt; 24 hrs:</b> nota × 0.85</li><li><b>24–48 hrs:</b> nota × 0.65</li><li><b>&gt; 48 hrs:</b> nota 1.0</li></ul>' },
+    ]
+  },
+  i2termo: {
+    course: 'Termodinámica — FIS1523', courseClass: 'termo',
+    title: 'Interrogación 2',
+    date: 'Viernes 29 de Mayo, 2026', due: '17:30 hrs',
+    points: '30% de NFC',
+    chips: ['Presencial', 'Individual', '2 horas máx.', 'Desarrollo', 'Con formulario'],
+    sections: [
+      { title: 'Temas evaluados', content: '<ul><li>2da Ley: direccionalidad, Ciclo de Carnot, entropía, balance de entropía</li><li>Relaciones termodinámicas: Gibbs, Helmholtz, Maxwell</li><li>Aplicaciones a la Ingeniería: Ciclo Rankine, motores Otto y Diesel, refrigeración</li></ul>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${f(103007,14152650,'12 — Segunda Ley')}</li>
+        <li>${f(103007,14152651,'13 — Entropía 1')}</li>
+        <li>${f(103007,14152652,'13 — Entropía 2')}</li>
+        <li>${f(103007,14152653,'13 — Entropía 3')}</li>
+        <li>${f(103007,14152664,'14 — Ejemplos Entropía')}</li>
+        <li>${f(103007,14152654,'14 — Solución Ejemplos Entropía')}</li>
+        <li>${f(103007,14152655,'15 — Ciclos de Potencia (Rankine, Otto, Diesel)')}</li>
+        <li>${f(103007,14152662,'15 — Solución Ciclos')}</li>
+      </ul>` },
+      { title: 'Condiciones', content: '<p>Individual, de desarrollo, con formulario. No hay recuperativas.</p>' },
+    ]
+  },
+  i2sis: {
+    course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
+    title: 'Interrogación 2',
+    date: 'Martes 2 de Junio, 2026', due: '17:30 hrs',
+    points: '30% de NE (45% de nota final)',
+    chips: ['Presencial', 'Individual', '2 horas', 'Formulario incluido'],
+    sections: [
+      { title: 'Temas evaluados', content: '<ul><li>Infraestructura TI (cloud, IaaS, PaaS, SaaS)</li><li>Business Intelligence y bases de datos</li><li>Redes y Comunicación</li><li>Seguridad TI</li><li>Inteligencia Artificial en las organizaciones</li><li>Gestión de Proyectos de Transformación Digital</li><li>Metodologías de Desarrollo (ágiles y tradicionales)</li></ul>' },
+      { title: 'Material de estudio', content: '<p class="no-info">Los PPTs de los temas de la I2 (Infraestructura TI, BI, Redes, Seguridad, AI) no están publicados aún en Canvas.</p>' },
+      { title: 'Condiciones', content: '<p>Individual y presencial. Prohibido uso de IA. Obligatoria.</p>' },
+    ]
+  },
+  c12eco: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Control 12 (Presencial)',
+    date:'Jue 4 Jun', due:'en clase', points:'Hasta 6 pts', chips:['Presencial'],
+    sections:[
+      { title:'Temas', content:'<p>Módulo 8: Economía en el Largo Plazo.</p>' },
+      { title:'Material de estudio', content:'<p class="no-info">Los PDFs del Módulo 8 no están publicados aún en Canvas.</p>' },
+    ]
+  },
+  eval3canvas: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Evaluación 3 — Canvas (Taller)',
+    date:'Lun 8 Jun', due:'todo el día', points:'—', chips:['Asincrónico','Canvas'],
+    sections:[
+      { title:'Descripcion', content:'<p class="no-info">Evaluación del Taller de Escritura, Sesión 3. No hay más detalles publicados aún.</p>' },
+      { title:'Material del taller', content:`<ul>
+        <li>${f(101712,14299132,'Programa del Taller 2026-1')}</li>
+      </ul>` },
+    ]
+  },
+  t5sis: {
+    course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
+    title: 'Tarea 5 (Final)',
+    date: 'Miércoles 10 de Junio, 2026', due: 'Por confirmar',
+    points: '35% de NH. Grupal (80%) + Oral individual (20%)',
+    chips: ['Grupal', 'Presentación en clases', 'Interrogación oral individual', 'Sin penalización por atraso'],
+    sections: [
+      { title: 'Descripcion', content: '<p>Proyecto final del curso. Requiere <b>integración conceptual de todos los contenidos del semestre</b>. Incluye presentación grupal en clases y luego interrogación oral individual.</p>' },
+      { title: 'Estado del enunciado', content: '<p class="no-info">Enunciado no publicado aún.</p>' },
+      { title: 'Estructura de la nota', content: '<p>H5 = (Nota Grupal) × 0.8 + (Nota Individual oral) × 0.2</p>' },
+      { title: 'Presentaciones', content: '<p>Jue 11 Jun / Mar 16 Jun / Jue 18 Jun / Mar 23 Jun / Jue 25 Jun. Tu grupo será calendarizado con antelación.</p>' },
+    ]
+  },
+  pres_sis: {
+    course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
+    title: 'Presentaciones Tarea 5 Final',
+    date: '11 Jun – 25 Jun, 2026', due: 'Fecha asignada a tu grupo',
+    points: 'Parte de H5 (35% de NH)',
+    chips: ['Grupal', 'Presencial', 'Interrogación oral posterior'],
+    sections: [
+      { title: 'Descripcion', content: '<p>Presentación grupal del proyecto final. Al terminar, se realiza <b>interrogación oral individual</b> a cada integrante sobre el proyecto o temas afines.</p>' },
+      { title: 'Evaluación de pares', content: '<p>Al finalizar la presentación, el grupo debe realizar la evaluación de pares.</p>' },
+      { title: 'Fechas posibles', content: '<ul><li>Jue 11 Jun</li><li>Mar 16 Jun</li><li>Jue 18 Jun</li><li>Mar 23 Jun</li><li>Jue 25 Jun</li></ul>' },
+    ]
+  },
+  c13eco: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Control 13 (Asincrónico)',
+    date:'Jue 11 Jun', due:'asincrónico', points:'Hasta 6 pts', chips:['Asincrónico'],
+    sections:[
+      { title:'Temas', content:'<p>Módulo 8: Economía en el Largo Plazo (continuación).</p>' },
+      { title:'Material de estudio', content:'<p class="no-info">Los PDFs del Módulo 8 no están publicados aún en Canvas.</p>' },
+    ]
+  },
+  i2eco: {
+    course: 'Economia — ICS1513', courseClass: 'eco',
+    title: 'Interrogación 2',
+    date: 'Martes 16 de Junio, 2026', due: 'Horario escuela',
+    points: '30% de NE',
+    chips: ['Presencial', 'Individual'],
+    sections: [
+      { title: 'Temas evaluados', content: '<ul><li>Módulo 4: Teoría del Consumidor</li><li>Módulo 5: Teoría del Productor</li><li>Módulo 6: Fallas de Mercado I</li><li>Módulo 7: Fallas de Mercado II</li><li>Módulo 8: Economía en el Largo Plazo (hasta Tema 22)</li></ul>' },
+      { title: 'Material de estudio', content: '<p class="no-info">Los PDFs de los Módulos 4–8 no están publicados aún en Canvas. Se actualizarán cuando estén disponibles.</p>' },
+    ]
+  },
+  c14eco: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Control 14 (Presencial)',
+    date:'Jue 18 Jun', due:'en clase', points:'Hasta 6 pts', chips:['Presencial'],
+    sections:[{ title:'Temas', content:'<p>Módulo 9: Dinero y Precios en el Largo Plazo.</p>' }]
+  },
+  c15eco: {
+    course:'Economia — ICS1513', courseClass:'eco', title:'Control 15 (Asincrónico)',
+    date:'Jue 25 Jun', due:'asincrónico', points:'Hasta 6 pts', chips:['Asincrónico'],
+    sections:[{ title:'Temas', content:'<p>Módulo 10: Fluctuaciones Económicas en el Corto Plazo.</p>' }]
+  },
+  ex_termo: {
+    course: 'Termodinámica — FIS1523', courseClass: 'termo',
+    title: 'Examen Final',
+    date: 'Martes 30 de Junio, 2026', due: '08:20 hrs',
+    points: '40% de NFC',
+    chips: ['Presencial', 'Individual', '2 horas máx.', 'Todos los contenidos', 'Con formulario', 'No hay eximición'],
+    sections: [
+      { title: 'Temas evaluados', content: '<p><b>Todos los contenidos del semestre:</b> Ley Cero, 1ra Ley, 2da Ley, Aplicaciones (Rankine, Otto, Diesel, Refrigeración).</p>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${f(103007,14152932,'01 — Introducción')}</li>
+        <li>${f(103007,14152939,'02 — Temperatura y Ley Cero')}</li>
+        <li>${f(103007,14153017,'05 — Energía y Primera Ley')}</li>
+        <li>${f(103007,14152643,'06 — Sustancias Puras')}</li>
+        <li>${f(103007,14152645,'08 — Gases Ideales')}</li>
+        <li>${f(103007,14152648,'10 — Sistemas Cerrados')}</li>
+        <li>${f(103007,14152647,'11 — Volumen de Control')}</li>
+        <li>${f(103007,14152650,'12 — Segunda Ley')}</li>
+        <li>${f(103007,14152651,'13 — Entropía 1')}</li>
+        <li>${f(103007,14152652,'13 — Entropía 2')}</li>
+        <li>${f(103007,14152653,'13 — Entropía 3')}</li>
+        <li>${f(103007,14152655,'15 — Ciclos de Potencia')}</li>
+      </ul>` },
+      { title: 'Importante', content: '<p><b>No hay eximición.</b> El examen puede reemplazar una sola interrogación si faltaste con justificativo.</p>' },
+    ]
+  },
+  ex_sis: {
+    course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
+    title: 'Examen Final',
+    date: 'Viernes 3 de Julio, 2026', due: '08:20 hrs',
+    points: 'Reemplaza I1 o I2 si faltaste con justificativo',
+    chips: ['Solo si faltaste con justificativo DIPRE', 'Presencial'],
+    sections: [
+      { title: 'Condiciones', content: '<p>Obligatorio <b>solo si faltaste a una interrogación con justificativo DIPRE</b>. Promedio I1+I2 ≥ 5.95 = puedes eximirte. Solo reemplaza <b>una</b> interrogación.</p>' },
+      { title: 'Temas', content: '<p>Todos los contenidos del semestre.</p>' },
+    ]
+  },
+  ex_eco: {
+    course: 'Economia — ICS1513', courseClass: 'eco',
+    title: 'Examen Final',
+    date: 'Sábado 4 de Julio, 2026', due: 'Horario escuela',
+    points: '40% de NE',
+    chips: ['Presencial', 'Individual', 'Todos los contenidos'],
+    sections: [
+      { title: 'Temas evaluados', content: '<p>Todos los contenidos del semestre (Módulos 1 al 10).</p>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li>${f(101712,14222138,'Tema 01 — Economía y sus Principios')}</li>
+        <li>${f(101712,14308935,'Tema 02 — Modelos Básicos')}</li>
+        <li>${f(101712,14222141,'Tema 03 — Comercio Internacional')}</li>
+        <li>${f(101712,14222166,'Tema 04 — Fuerzas del Mercado')}</li>
+        <li>${f(101712,14222168,'Tema 05 — Elasticidad')}</li>
+        <li>${f(101712,14222158,'Tema 06 — Eficiencia de Mercado')}</li>
+        <li>${f(101712,14222159,'Tema 07 — Control Precios, Impuestos')}</li>
+        <li>${f(101712,14222156,'Tema 08 — Comercio Internacional')}</li>
+        <li>${f(101712,14222152,'Tema 09 — Sistema de Impuestos')}</li>
+        <li><i>Módulos 4–8: disponibles cuando se publiquen en Canvas</i></li>
+      </ul>` },
+    ]
+  },
+  // ===== PROGRAMACIÓN AVANZADA =====
+  ac1prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Actividad 1 — Entorno de Trabajo',
+    date: 'Jueves 12 de Marzo, 2026', due: 'hasta 17:20 (en clase)',
+    points: '4 pts de cátedra',
+    chips: ['Individual', 'En clase', 'Jupyter/Python', 'Sem. 2'],
+    sections: [
+      { title: 'Contenido', content: '<p>Entorno de trabajo: Git, GitHub, Jupyter Notebooks, guías de estilo (PEP8).</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Repositorio de contenidos (Semana 2)</a></li></ul>` },
+    ]
+  },
+  ac2prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Actividad 2 — Estructuras de Datos',
+    date: 'Jueves 19 de Marzo, 2026', due: 'hasta 17:20 (en clase)',
+    points: '4 pts de cátedra',
+    chips: ['Individual', 'En clase', 'Sem. 3'],
+    sections: [
+      { title: 'Contenido', content: '<p>Estructuras de datos: listas, stacks, colas, named tuples, sets, diccionarios.</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Repositorio de contenidos (Semana 3)</a></li></ul>` },
+    ]
+  },
+  t0prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Tarea 0',
+    date: 'Publicada 12 Mar — Entrega Jueves 19 de Marzo, 2026', due: '20:00 hrs',
+    points: 'Individual — 5 días hábiles de extensión',
+    chips: ['Individual', 'Python', 'GitHub Classroom', 'Plagio desaprueba el curso'],
+    sections: [
+      { title: 'Descripcion', content: '<p>Primera tarea del semestre. Publicada el 12 de marzo, entrega el 19 de marzo a las 20:00.</p>' },
+      { title: 'Obtención de puntaje', content: '<p>Corrección automatizada con tests públicos y privados. El commit del repositorio al momento del cierre es el que se evalúa.</p>' },
+      { title: 'Material', content: `<ul>
+        <li><a href="https://github.com/IIC2233/Syllabus/tree/main/Tareas" target="_blank" style="color:var(--prog);font-weight:700">📂 Carpeta Tareas en el Syllabus</a></li>
+        <li><a href="https://github.com/IIC2233/Syllabus/blob/main/Archivos%20Importantes/Como%20obtener%20el%20commit.md" target="_blank" style="color:var(--prog);font-weight:700">📄 Cómo obtener el commit</a></li>
+      </ul>` },
+      { title: 'Integridad académica', content: '<p>Plagio implica reprobar el curso. No uses código de internet, IA, ni de otros estudiantes sin atribución explícita.</p>' },
+    ]
+  },
+  ac3prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Actividad 3 — OOP Avanzado',
+    date: 'Jueves 26 de Marzo, 2026', due: 'hasta 17:20 (en clase)',
+    points: '4 pts de cátedra',
+    chips: ['Individual', 'En clase', 'Sem. 4'],
+    sections: [
+      { title: 'Contenido', content: '<p>Programación orientada a objetos: herencia, polimorfismo, clases abstractas.</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Repositorio de contenidos (Semana 4)</a></li></ul>` },
+    ]
+  },
+  ac4prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Actividad 4 — Excepciones, Iterables e Iteradores',
+    date: 'Jueves 9 de Abril, 2026', due: 'hasta 17:20 (en clase)',
+    points: '4 pts de cátedra',
+    chips: ['Individual', 'En clase', 'Sem. 6'],
+    sections: [
+      { title: 'Contenido', content: '<p>Manejo de excepciones, objetos iterables, objetos iteradores, generadores, listas ligadas.</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Repositorio de contenidos (Semana 6)</a></li></ul>` },
+    ]
+  },
+  t1prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Tarea 1',
+    date: 'Publicada 26 Mar — Entrega Viernes 10 de Abril, 2026', due: '20:00 hrs',
+    points: 'Individual — 7 días hábiles de extensión',
+    chips: ['Individual', 'Python', 'GitHub Classroom', 'Plagio desaprueba el curso'],
+    sections: [
+      { title: 'Descripcion', content: '<p>Segunda tarea del semestre. Publicada el 26 de marzo, entrega el 10 de abril a las 20:00.</p>' },
+      { title: 'Temas probables', content: '<p>Estructuras de datos y OOP avanzado (Sems. 3–5).</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/Syllabus/tree/main/Tareas" target="_blank" style="color:var(--prog);font-weight:700">📂 Carpeta Tareas en el Syllabus</a></li></ul>` },
+    ]
+  },
+  i1prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Interrogación 1',
+    date: 'Miércoles 15 de Abril, 2026', due: '17:30 – 20:00 hrs',
+    points: 'Parte de NE (ver fórmula)',
+    chips: ['Presencial', 'Individual', '2.5 horas', 'Evaluación escrita'],
+    sections: [
+      { title: 'Temas evaluados', content: '<ul><li>Entorno de trabajo y Git</li><li>Estructuras de datos: listas, stacks, colas, sets, dicts</li><li>OOP: herencia, polimorfismo, clases abstractas</li><li>Iterables, iteradores y generadores</li><li>Manejo de excepciones</li></ul>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Contenidos Sems. 1–6</a></li>
+        <li><a href="https://github.com/IIC2233/Syllabus/tree/main/Evaluaciones%20escritas" target="_blank" style="color:var(--prog);font-weight:700">📂 Evaluaciones escritas anteriores</a></li>
+      </ul>` },
+      { title: 'Fórmula de notas', content: '<p>C = mín(7, (PC/27)×6+1) — Cátedra (20%)<br>NE = Promedio I1, I2, Examen (40%)<br>T = Promedio tareas (40%)</p>' },
+    ]
+  },
+  ex1prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Experiencia 1 — Control de Salida (Prog. Funcional)',
+    date: 'Jueves 16 de Abril, 2026', due: 'en clase',
+    points: '1 pt de cátedra',
+    chips: ['Individual', 'En clase', 'Breve (control de salida)', 'Sem. 7'],
+    sections: [
+      { title: 'Contenido', content: '<p>Programación funcional: paradigma, funciones map, filter, reduce, lambdas.</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Contenidos Semana 7</a></li><li><a href="https://github.com/IIC2233/Syllabus/tree/main/Experiencias" target="_blank" style="color:var(--prog);font-weight:700">📂 Carpeta Experiencias</a></li></ul>` },
+    ]
+  },
+  ac5prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Actividad 5 — Threading',
+    date: 'Jueves 23 de Abril, 2026', due: 'hasta 17:20 (en clase)',
+    points: '4 pts de cátedra',
+    chips: ['Individual', 'En clase', 'Sem. 8'],
+    sections: [
+      { title: 'Contenido', content: '<p>Threading: pseudo-paralelismo, concurrencia, creación y sincronización de threads.</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Repositorio de contenidos (Semana 8)</a></li></ul>` },
+    ]
+  },
+  ex2prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Experiencia 2 — Control de Salida (Interfaz Gráfica 1)',
+    date: 'Jueves 30 de Abril, 2026', due: 'en clase',
+    points: '1 pt de cátedra',
+    chips: ['Individual', 'En clase', 'Breve (control de salida)', 'Sem. 9'],
+    sections: [
+      { title: 'Contenido', content: '<p>Interfaces gráficas con PyQt: señales y slots, comunicación backend/frontend.</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Contenidos Semana 9</a></li><li><a href="https://github.com/IIC2233/Syllabus/tree/main/Experiencias" target="_blank" style="color:var(--prog);font-weight:700">📂 Carpeta Experiencias</a></li></ul>` },
+    ]
+  },
+  ac6prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Actividad 6 — Serialización y Networking 1',
+    date: 'Sem. 10 (aprox. 7 de Mayo, 2026)', due: 'hasta 17:20 (en clase)',
+    points: '4 pts de cátedra',
+    chips: ['Individual', 'En clase', 'Sem. 10'],
+    sections: [
+      { title: 'Contenido', content: '<p>Serialización: bytes, JSON, formatos binarios. Networking: sockets básicos.</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Repositorio de contenidos (Semana 10)</a></li></ul>` },
+    ]
+  },
+  ex3prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Experiencia 3 — Control de Salida (Serialización y Networking 2)',
+    date: 'Jueves 14 de Mayo, 2026', due: 'en clase',
+    points: '1 pt de cátedra',
+    chips: ['Individual', 'En clase', 'Breve (control de salida)', 'Sem. 11'],
+    sections: [
+      { title: 'Contenido', content: '<p>Networking avanzado: modelo cliente-servidor, intercambio de información, sistemas distribuidos.</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Contenidos Semana 11</a></li><li><a href="https://github.com/IIC2233/Syllabus/tree/main/Experiencias" target="_blank" style="color:var(--prog);font-weight:700">📂 Carpeta Experiencias</a></li></ul>` },
+    ]
+  },
+  t2prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Tarea 2',
+    date: 'Publicada 30 Abr — Entrega Viernes 15 de Mayo, 2026', due: '20:00 hrs',
+    points: 'Individual — 10 días hábiles de extensión',
+    chips: ['Individual', 'Python', 'GitHub Classroom'],
+    sections: [
+      { title: 'Descripcion', content: '<p>Tercera tarea del semestre. Publicada el 30 de abril, entrega el 15 de mayo a las 20:00.</p>' },
+      { title: 'Temas probables', content: '<p>Threading y/o Interfaz Gráfica con PyQt (Sems. 8–9).</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/Syllabus/tree/main/Tareas" target="_blank" style="color:var(--prog);font-weight:700">📂 Carpeta Tareas en el Syllabus</a></li></ul>` },
+    ]
+  },
+  i2prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Interrogación 2',
+    date: 'Jueves 28 de Mayo, 2026', due: '17:30 – 20:00 hrs',
+    points: 'Parte de NE (ver fórmula)',
+    chips: ['Presencial', 'Individual', '2.5 horas', 'Evaluación escrita'],
+    sections: [
+      { title: 'Temas evaluados', content: '<ul><li>Programación funcional (map, filter, reduce)</li><li>Threading y sincronización</li><li>Interfaces gráficas con PyQt</li><li>Serialización (bytes, JSON)</li><li>Networking: sockets, cliente-servidor</li></ul>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Contenidos Sems. 7–11</a></li>
+        <li><a href="https://github.com/IIC2233/Syllabus/tree/main/Evaluaciones%20escritas" target="_blank" style="color:var(--prog);font-weight:700">📂 Evaluaciones escritas anteriores</a></li>
+      </ul>` },
+    ]
+  },
+  ex4prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Experiencia 4 — Control de Salida (Interfaces Gráficas 2)',
+    date: 'Jueves 4 de Junio, 2026', due: 'en clase',
+    points: '1 pt de cátedra',
+    chips: ['Individual', 'En clase', 'Breve (control de salida)', 'Sem. 14'],
+    sections: [
+      { title: 'Contenido', content: '<p>Interfaces gráficas avanzadas con PyQt: layouts, widgets compuestos, señales personalizadas.</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Contenidos Semana 14</a></li><li><a href="https://github.com/IIC2233/Syllabus/tree/main/Experiencias" target="_blank" style="color:var(--prog);font-weight:700">📂 Carpeta Experiencias</a></li></ul>` },
+    ]
+  },
+  ac7prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Actividad 7 — Tópicos Avanzados 1',
+    date: 'Jueves 11 de Junio, 2026', due: 'hasta 17:20 (en clase)',
+    points: '4 pts de cátedra',
+    chips: ['Individual', 'En clase', 'Sem. 15'],
+    sections: [
+      { title: 'Contenido', content: '<p>Tópicos avanzados 1: web services, APIs REST, expresiones regulares.</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Repositorio de contenidos (Semana 15)</a></li></ul>` },
+    ]
+  },
+  t3prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Tarea 3',
+    date: 'Publicada 4 Jun — Entrega Viernes 19 de Junio, 2026', due: '20:00 hrs',
+    points: 'Individual — 10 días hábiles de extensión',
+    chips: ['Individual', 'Python', 'GitHub Classroom'],
+    sections: [
+      { title: 'Descripcion', content: '<p>Cuarta y última tarea del semestre. Publicada el 4 de junio, entrega el 19 de junio a las 20:00.</p>' },
+      { title: 'Temas probables', content: '<p>Networking, serialización avanzada, o interfaces gráficas 2 (Sems. 13–15).</p>' },
+      { title: 'Material', content: `<ul><li><a href="https://github.com/IIC2233/Syllabus/tree/main/Tareas" target="_blank" style="color:var(--prog);font-weight:700">📂 Carpeta Tareas en el Syllabus</a></li></ul>` },
+    ]
+  },
+  ex_prog: {
+    course: 'Prog. Avanzada — IIC2233', courseClass: 'prog',
+    title: 'Examen Final',
+    date: 'Martes 30 de Junio, 2026', due: '13:30 – 17:20 hrs',
+    points: 'Parte de NE (ver fórmula)',
+    chips: ['Presencial', 'Individual', '3.5 horas', 'Todos los contenidos'],
+    sections: [
+      { title: 'Temas evaluados', content: '<p>Todos los contenidos del semestre: estructuras de datos, OOP, iterables, prog. funcional, threading, GUI, serialización, networking, tópicos avanzados.</p>' },
+      { title: 'Material de estudio', content: `<ul>
+        <li><a href="https://github.com/IIC2233/contenidos" target="_blank" style="color:var(--prog);font-weight:700">📂 Todos los contenidos del semestre</a></li>
+        <li><a href="https://github.com/IIC2233/Syllabus/tree/main/Evaluaciones%20escritas" target="_blank" style="color:var(--prog);font-weight:700">📂 Evaluaciones escritas anteriores</a></li>
+      </ul>` },
+      { title: 'Fórmula de notas', content: '<p>NF = 0.2×C + 0.4×T + 0.4×NE<br>NE = promedio I1, I2, Examen (o se reemplaza si I1/I2 ≥ 5.95).<br>Aprobación: NF ≥ 4.0 y T ≥ 3.95 y NE ≥ 3.95</p>' },
+    ]
+  },
+};
+
+function openModal(id) {
+  const d = data[id];
+  if (!d) return;
+  const colors = { eco:'#e91e8c', sis:'#9c27b0', termo:'#c2185b', lab:'#ad1457' };
+  const bgColors = { eco:'#fce4ec', sis:'#f3e5f5', termo:'#fde8ef', lab:'#fce4ec' };
+  const color = colors[d.courseClass] || '#c2185b';
+  const bg = bgColors[d.courseClass] || '#fce4ec';
+
+  let chips = d.chips.map(c => `<span class="info-chip">${c}</span>`).join('');
+  let sections = d.sections.map(s => `
+    <div class="modal-section">
+      <h4>${s.title}</h4>
+      ${s.content}
+    </div>
+  `).join('');
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-course" style="color:${color}">${d.course}</div>
+    <div class="modal-title">${d.title}</div>
+    <div class="info-row">
+      <span class="info-chip">📅 ${d.date}</span>
+      <span class="info-chip">⏰ ${d.due}</span>
+      <span class="info-chip">⭐ ${d.points}</span>
+    </div>
+    <div class="info-row">${chips}</div>
+    ${sections}
+  `;
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('active');
+}
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ============================================================
+// GRADE TRACKING SYSTEM
+// ============================================================
+const SKEY = 'wendy_notas_2026_1';
+function loadN(){ return JSON.parse(localStorage.getItem(SKEY)||'{}'); }
+function saveN(obj){ localStorage.setItem(SKEY, JSON.stringify(obj)); }
+
+function setDid2(id, did){
+  const n = loadN();
+  n[id] = { ...(n[id]||{}), did, grade: did ? ((n[id]||{}).grade||null) : null };
+  saveN(n); updateDots(); renderAll();
+  // Update modal buttons inline if open
+  const sb = document.querySelector(`#modal-body .tb.si[onclick*="'${id}'"]`);
+  const nb = document.querySelector(`#modal-body .tb.no[onclick*="'${id}'"]`);
+  const inp = document.getElementById('minp-'+id);
+  if(sb) sb.classList.toggle('on', did===true);
+  if(nb) nb.classList.toggle('on', did===false);
+  if(inp) inp.disabled = (did===false);
+}
+function setGrade(id, val){
+  const n = loadN();
+  if(!n[id]) n[id]={did:true,grade:null};
+  n[id].grade = (val!==''&&val!=null) ? parseFloat(val) : null;
+  n[id].did = true;
+  saveN(n); updateDots(); renderAll();
+}
+function updateDots(){
+  const n = loadN();
+  document.querySelectorAll('.event[onclick]').forEach(el=>{
+    const m = el.getAttribute('onclick').match(/openModal\('(.+?)'\)/);
+    if(!m) return;
+    const d = n[m[1]];
+    let dot = el.querySelector('.edot');
+    if(!dot){ dot=document.createElement('span'); dot.className='edot'; el.appendChild(dot); }
+    dot.style.cssText='font-weight:900;margin-left:2px;font-size:.88em';
+    if(!d){ dot.textContent=''; return; }
+    if(!d.did){ dot.textContent=' ✗'; dot.style.color='#b71c1c'; }
+    else{ dot.textContent=d.grade!=null?` ${d.grade}`:''; dot.style.color='#1b5e20'; }
+  });
+}
+
+// Course definitions
+const CDEFS = {
+  eco:{
+    name:'Economía (ICS1513)', short:'Economía', color:'#e91e8c', bg:'#fce4ec', tc:'#880e4f',
+    formula:'NF ≈ 0.6×NE + 0.2×NC + 0.2×NT',
+    groups:[
+      { label:'Nota Escrita NE (60%)', w:0.6, note:'NE = 0.3×I1 + 0.3×I2 + 0.4×Examen', items:[
+        {id:'i1eco',label:'Interrogación 1',w:0.3,date:'18 Abr'},
+        {id:'i2eco',label:'Interrogación 2',w:0.3,date:'16 Jun'},
+        {id:'ex_eco',label:'Examen Final',w:0.4,date:'4 Jul'},
+      ]},
+      { label:'Controles NC (20%)', w:0.2, note:'Promedio de los mejores 13 de 14 controles', items:[
+        {id:'c1eco',label:'C1',w:1/13,date:'12 Mar'},{id:'c2eco',label:'C2',w:1/13,date:'19 Mar'},
+        {id:'c3eco',label:'C3',w:1/13,date:'26 Mar'},{id:'c4eco',label:'C4',w:1/13,date:'31 Mar'},
+        {id:'c5eco',label:'C5',w:1/13,date:'9 Abr'},{id:'c6eco',label:'C6',w:1/13,date:'16 Abr'},
+        {id:'c7eco',label:'C7',w:1/13,date:'23 Abr'},{id:'c8eco',label:'C8',w:1/13,date:'30 Abr'},
+        {id:'c10eco',label:'C10',w:1/13,date:'14 May'},{id:'c11eco',label:'C11',w:1/13,date:'28 May'},
+        {id:'c12eco',label:'C12',w:1/13,date:'4 Jun'},{id:'c13eco',label:'C13',w:1/13,date:'11 Jun'},
+        {id:'c14eco',label:'C14',w:1/13,date:'18 Jun'},{id:'c15eco',label:'C15',w:1/13,date:'25 Jun'},
+      ]},
+      { label:'Taller NT (20%)', w:0.2, note:'Promedio evaluaciones del Taller de Escritura', items:[
+        {id:'eval1taller',label:'Video Fichaje',w:0.25,date:'20 Mar'},
+        {id:'eval1canvas',label:'Eval 1 Canvas',w:0.25,date:'10 Abr'},
+        {id:'eval2taller',label:'Eval 2 Taller',w:0.25,date:'5 May'},
+        {id:'eval3canvas',label:'Eval 3 Canvas',w:0.25,date:'8 Jun'},
+      ]},
+    ]
+  },
+  sis:{
+    name:'Sistemas de Información (IIC2713)', short:'SisInfo', color:'#9c27b0', bg:'#f3e5f5', tc:'#4a148c',
+    formula:'NF = 0.45×NE + 0.55×NH',
+    groups:[
+      { label:'Nota Escrita NE (45%)', w:0.45, note:'NE = 0.3×I1 + 0.3×I2 + 0.4×Examen', items:[
+        {id:'i1sis',label:'Interrogación 1',w:0.3,date:'16 Abr'},
+        {id:'i2sis',label:'Interrogación 2',w:0.3,date:'2 Jun'},
+        {id:'ex_sis',label:'Examen (si aplica)',w:0.4,date:'3 Jul'},
+      ]},
+      { label:'Homeworks NH (55%)', w:0.55, note:'NH = promedio H1–H5', items:[
+        {id:'t1sis',label:'Tarea 1',w:0.2,date:'24 Mar'},{id:'t2sis',label:'Tarea 2',w:0.2,date:'7 Abr'},
+        {id:'t3sis',label:'Tarea 3',w:0.2,date:'28 Abr'},{id:'t4sis',label:'Tarea 4',w:0.2,date:'28 May'},
+        {id:'t5sis',label:'Tarea 5 + Pres.',w:0.2,date:'10 Jun'},
+      ]},
+    ]
+  },
+  termo:{
+    name:'Termodinámica (FIS1523)', short:'Termo', color:'#c2185b', bg:'#fde8ef', tc:'#880e4f',
+    formula:'NF = 0.7×NFC + 0.3×NL (si ambas ≥ 4.0)',
+    groups:[
+      { label:'Fondo de Curso NFC (70%)', w:0.7, note:'NFC = 0.3×I1 + 0.3×I2 + 0.4×Examen', items:[
+        {id:'i1termo',label:'Interrogación 1',w:0.3,date:'30 Abr'},
+        {id:'i2termo',label:'Interrogación 2',w:0.3,date:'29 May'},
+        {id:'ex_termo',label:'Examen Final',w:0.4,date:'30 Jun'},
+      ]},
+      { label:'Laboratorio NL (30%)', w:0.3, note:'NL = promedio de los 5 experimentos + control de lectura', items:[
+        {id:'ctrl_lab',label:'Control de Lectura',w:0.15,date:'6 Abr'},
+        {id:'inicio_lab',label:'Experimentos Lab (5)',w:0.85,date:'30 Mar'},
+      ]},
+    ]
+  },
+  prog:{
+    name:'Prog. Avanzada (IIC2233)', short:'Prog. Av.', color:'#0891b2', bg:'#e0f2fe', tc:'#0c4a6e',
+    formula:'NF = 0.2×C + 0.4×T + 0.4×NE',
+    groups:[
+      { label:'Cátedra C (20%)', w:0.2, note:'C = mín(7, PC/27×6+1). ACs valen 4 pts, EXs valen 1 pt. Ingresa pts (0–4 / 0–1)', items:[
+        {id:'ac1prog',label:'AC1',w:4/27,date:'12 Mar'},{id:'ac2prog',label:'AC2',w:4/27,date:'19 Mar'},
+        {id:'ac3prog',label:'AC3',w:4/27,date:'26 Mar'},{id:'ac4prog',label:'AC4',w:4/27,date:'9 Abr'},
+        {id:'ex1prog',label:'EX1',w:1/27,date:'16 Abr'},{id:'ac5prog',label:'AC5',w:4/27,date:'23 Abr'},
+        {id:'ex2prog',label:'EX2',w:1/27,date:'30 Abr'},{id:'ac6prog',label:'AC6',w:4/27,date:'7 May'},
+        {id:'ex3prog',label:'EX3',w:1/27,date:'14 May'},{id:'ex4prog',label:'EX4',w:1/27,date:'4 Jun'},
+        {id:'ac7prog',label:'AC7',w:4/27,date:'11 Jun'},
+      ]},
+      { label:'Tareas T (40%)', w:0.4, note:'T = promedio de T0, T1, T2, T3', items:[
+        {id:'t0prog',label:'T0',w:0.25,date:'19 Mar'},{id:'t1prog',label:'T1',w:0.25,date:'10 Abr'},
+        {id:'t2prog',label:'T2',w:0.25,date:'15 May'},{id:'t3prog',label:'T3',w:0.25,date:'19 Jun'},
+      ]},
+      { label:'Nota Escrita NE (40%)', w:0.4, note:'NE = promedio de I1, I2 y Examen', items:[
+        {id:'i1prog',label:'I1',w:1/3,date:'15 Abr'},
+        {id:'i2prog',label:'I2',w:1/3,date:'28 May'},
+        {id:'ex_prog',label:'Examen',w:1/3,date:'30 Jun'},
+      ]},
+    ]
+  }
+};
+
+function calcCourse(ckey){
+  const n = loadN(), cdef = CDEFS[ckey];
+  let donePts=0, doneW=0, skipPts=0, skipW=0, pendW=0;
+  for(const grp of cdef.groups){
+    for(const item of grp.items){
+      const absW = grp.w * item.w, d = n[item.id];
+      if(d && d.did && d.grade!=null){ donePts+=absW*d.grade; doneW+=absW; }
+      else if(d && !d.did){ skipPts+=absW*1.0; skipW+=absW; }
+      else { pendW+=absW; }
+    }
+  }
+  const projected = donePts+skipPts;
+  const needed = pendW>0.001 ? (4.0-projected)/pendW : null;
+  const currentAvg = doneW>0 ? donePts/doneW : null;
+  return {
+    currentAvg: currentAvg!=null ? Math.round(currentAvg*100)/100 : null,
+    needed: needed!=null ? Math.round(needed*100)/100 : null,
+    pendW: Math.round(pendW*100)/100,
+    allDone: pendW<0.001
+  };
+}
+
+function renderPanel(ckey){
+  const n = loadN(), cdef = CDEFS[ckey];
+  const el = document.getElementById('t-'+ckey);
+  if(!el) return;
+  const c = calcCourse(ckey);
+  // summary chip for header
+  let sumChip = '';
+  if(c.currentAvg!=null){ const cl=c.currentAvg>=5?'ok':c.currentAvg>=4?'warn':'bad'; sumChip=`<span class="tc ${cl}" style="font-size:.72em;padding:3px 10px">~${c.currentAvg}</span>`; }
+  const isOpen = el.dataset.open==='1';
+  let html = `
+    <div class="acc-hdr" onclick="toggleCourse('${ckey}')" style="border-left:4px solid ${cdef.color}">
+      <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0">
+        <span style="font-weight:900;font-size:.9em;color:${cdef.color}">${cdef.short}</span>
+        <span style="font-size:.75em;color:#aaa;font-weight:600;font-style:italic">${cdef.formula}</span>
+        ${sumChip}
+      </div>
+      <span class="acc-arr ${isOpen?'':'acc-closed'}" id="aarr-${ckey}">▾</span>
+    </div>
+    <div id="abody-${ckey}" style="display:${isOpen?'block':'none'}">`;
+  for(const grp of cdef.groups){
+    html += `<div class="tg-hdr">${grp.label}<span class="tg-note">— ${grp.note}</span></div>`;
+    for(const item of grp.items){
+      const d = n[item.id]||{};
+      const siOn=d.did===true?'on':'', noOn=d.did===false?'on':'';
+      const gv=d.grade!=null?d.grade:'', dis=d.did===false?'disabled':'';
+      const wPct=Math.round(grp.w*item.w*100);
+      const gc=d.did&&d.grade!=null?(d.grade>=5?'#1b5e20':d.grade>=4?'#e65100':'#b71c1c'):'';
+      html += `<div class="tr-row">
+        <div class="tr-label">${item.label}</div>
+        <div class="tr-date">${item.date}</div>
+        <div style="display:flex;gap:4px">
+          <button class="tb si ${siOn}" title="Sí, la realicé" onclick="setDid2('${item.id}',true)">✓</button>
+          <button class="tb no ${noOn}" title="No la realicé" onclick="setDid2('${item.id}',false)">✕</button>
+        </div>
+        <input class="tr-inp" type="number" min="1" max="7" step="0.1"
+          value="${gv}" placeholder="–" ${dis}
+          style="${gc?'color:'+gc+';font-weight:900':''}"
+          onchange="setGrade('${item.id}',this.value)">
+        <div class="tr-wt">${wPct}%</div>
+      </div>`;
+    }
+  }
+  let chips='';
+  if(c.currentAvg!=null){ const cl=c.currentAvg>=5?'ok':c.currentAvg>=4?'warn':'bad'; chips+=`<div class="tc ${cl}">Promedio actual: <b>${c.currentAvg}</b></div>`; }
+  if(c.allDone&&c.currentAvg!=null){ chips+=c.currentAvg>=4?`<div class="tc ok">¡Aprobada con ${c.currentAvg}! 🌟</div>`:`<div class="tc bad">Reprobada con ${c.currentAvg} 😰</div>`; }
+  else if(c.needed!=null){
+    if(c.needed<=1) chips+=`<div class="tc ok">¡Ya pasas! 🎉</div>`;
+    else if(c.needed>7) chips+=`<div class="tc bad">Imposible llegar a 4.0 con lo que falta 😱</div>`;
+    else { const cl=c.needed>6?'bad':c.needed>5?'warn':'ok'; chips+=`<div class="tc ${cl}">Necesitas <b>${c.needed}</b> promedio en lo que falta</div>`; }
+  }
+  if(!chips) chips=`<div class="tc info">Registra tus notas para ver el cálculo 💅</div>`;
+  html+=`<div class="t-sum">${chips}</div></div>`;
+  el.innerHTML=html;
+}
+
+function toggleTracker(){
+  const body=document.getElementById('tracker-body');
+  const arr=document.getElementById('tracker-arrow');
+  const open=body.style.display!=='none';
+  body.style.display=open?'none':'block';
+  arr.style.transform=open?'rotate(-90deg)':'rotate(0deg)';
+}
+
+function toggleCourse(ckey){
+  const body=document.getElementById('abody-'+ckey);
+  const arr=document.getElementById('aarr-'+ckey);
+  const el=document.getElementById('t-'+ckey);
+  if(!body) return;
+  const open=body.style.display!=='none';
+  body.style.display=open?'none':'block';
+  arr.classList.toggle('acc-closed',open);
+  el.dataset.open=open?'0':'1';
+}
+
+// ---- STUDY TASKS ----
+const TKEY = 'wendy_tasks_2026_1';
+function loadT(){ return JSON.parse(localStorage.getItem(TKEY)||'{}'); }
+
+const WEEKS = [
+  { w:1, label:'Semana 1 — Esta semana', dates:'12–15 Mar' },
+  { w:2, label:'Semana 2',               dates:'16–22 Mar' },
+  { w:3, label:'Semana 3',               dates:'23–29 Mar' },
+  { w:4, label:'Semana 4 ⚠️ Prep. Interrogaciones', dates:'30 Mar – 9 Abr' },
+];
+
+const TASKS = [
+  // SEMANA 1 (12-15 Mar)
+  { id:'w1_1', w:1, c:'sis',  icon:'📄', text:'Leer la política de integridad académica de SisInfo (PDF en Canvas) — control el Mar 17', ev:'ctrl_integr_sis' },
+  { id:'w1_2', w:1, c:'prog', icon:'💻', text:'Leer enunciado de T0 Prog. Avanzada y crear repo en GitHub Classroom — entrega Mar 19', ev:'t0prog' },
+  { id:'w1_3', w:1, c:'prog', icon:'📖', text:'Estudiar contenidos Semana 2: Git, Jupyter, PEP8 (repo contenidos IIC2233)', ev:'ac2prog' },
+  { id:'w1_4', w:1, c:'eco',  icon:'🎬', text:'Planificar y grabar el Video Fichaje para el Taller de Escritura — entrega Mar 20', ev:'eval1taller' },
+  { id:'w1_5', w:1, c:'eco',  icon:'📖', text:'Repasar Temas 01 y 02 de Economía (ya evaluados en C1 — reforzar antes de C3)', ev:'c3eco' },
+
+  // SEMANA 2 (16-22 Mar)
+  { id:'w2_1', w:2, c:'sis',  icon:'✅', text:'Rendir Control de Integridad Académica (Mar 17, en clase, mod. 2)', ev:'ctrl_integr_sis' },
+  { id:'w2_2', w:2, c:'prog', icon:'💻', text:'Finalizar T0 y hacer commit con hash antes de las 20:00 del Jue 19 Mar', ev:'t0prog' },
+  { id:'w2_3', w:2, c:'prog', icon:'🖥️', text:'AC2 en clase (Jue 19): repasar listas ligadas, stacks, colas, sets y dicts antes de ir', ev:'ac2prog' },
+  { id:'w2_4', w:2, c:'eco',  icon:'📤', text:'Subir Video Fichaje Taller de Escritura antes del Vie 20 (23:59)', ev:'eval1taller' },
+  { id:'w2_5', w:2, c:'eco',  icon:'📖', text:'Leer Temas 06–09: Eficiencia de Mercado, Control de Precios, Comercio Int., Impuestos', ev:'c3eco' },
+  { id:'w2_6', w:2, c:'sis',  icon:'📖', text:'Estudiar PPTs 02a–04 (Intro SI, BPM, Estrategia) para Tarea 1 SisInfo', ev:'t1sis' },
+  { id:'w2_7', w:2, c:'prog', icon:'📖', text:'Estudiar Semana 3 contenidos Prog: EDD (pilas, colas, árboles) — antes del Jue 26', ev:'ac3prog' },
+
+  // SEMANA 3 (23-29 Mar)
+  { id:'w3_1', w:3, c:'sis',  icon:'📝', text:'Entregar Tarea 1 SisInfo (Mar 24) — integra temas SI, BPM y Estrategia', ev:'t1sis' },
+  { id:'w3_2', w:3, c:'prog', icon:'📖', text:'Estudiar OOP avanzado (herencia, polimorfismo, abstractas) para AC3 Jue 26', ev:'ac3prog' },
+  { id:'w3_3', w:3, c:'prog', icon:'🖥️', text:'AC3 en clase (Jue 26) — OOP avanzado: llevar código preparado', ev:'ac3prog' },
+  { id:'w3_4', w:3, c:'eco',  icon:'📝', text:'Rendir Control 3 Economía (Jue 26) — Temas 06–09', ev:'c3eco' },
+  { id:'w3_5', w:3, c:'sis',  icon:'💡', text:'Anotar ejemplos de ERP, CRM, SCM — útiles para Tarea 2 SisInfo', ev:'i1sis' },
+  { id:'w3_6', w:3, c:'eco',  icon:'📖', text:'Leer Temas 03, 10 y 11 de Economía para completar base de la I1', ev:'i1eco' },
+
+  // SEMANA 4 (30 Mar – 9 Abr) — 2 SEMANAS ANTES de I1 Prog (15 Abr), I1 SisInfo (16 Abr), I1 Eco (18 Abr)
+  { id:'w4_1', w:4, c:'prog', icon:'⚠️', text:'PREPARACIÓN I1 Prog (15 Abr — faltan ~2 sem): repasar OOP, EDD, árboles, recursión. Revisar materia Semanas 1–5', ev:'i1prog', warn:true },
+  { id:'w4_2', w:4, c:'sis',  icon:'⚠️', text:'PREPARACIÓN I1 SisInfo (16 Abr — faltan ~2 sem): estudiar PPTs de SI, BPM, ERP/CRM, Estrategia, Toma de decisiones', ev:'i1sis', warn:true },
+  { id:'w4_3', w:4, c:'eco',  icon:'⚠️', text:'PREPARACIÓN I1 Economía (18 Abr — faltan ~2 sem): repasar Temas 01–11, controles anteriores, resolver guías de ejercicios', ev:'i1eco', warn:true },
+  { id:'w4_4', w:4, c:'prog', icon:'💻', text:'Avanzar T1 Prog. Avanzada (entrega 10 Abr) — definir clases, estructura, tests básicos', ev:'t1prog' },
+  { id:'w4_5', w:4, c:'sis',  icon:'📝', text:'Empezar Tarea 2 SisInfo (entrega 7 Abr) — análisis de sistema con ERP/CRM/SCM', ev:'t2sis' },
+  { id:'w4_6', w:4, c:'lab',  icon:'🔬', text:'Asistir al Control de Lectura Lab Termodinámica (Lun 6 Abr) — leer guía antes', ev:'ctrl_lab' },
+  { id:'w4_7', w:4, c:'termo',icon:'⚠️', text:'Comenzar repaso para I1 Termo (30 Abr): revisar Leyes Termodinámicas, ciclos, entropía — falta ~1 mes', ev:'i1termo', warn:true },
+];
+
+function toggleTask(id){
+  const t=loadT(); t[id]=!t[id];
+  localStorage.setItem(TKEY,JSON.stringify(t));
+  renderStudyPlan();
+}
+
+function toggleWeek(w){
+  const el=document.getElementById('wtasks'+w), arr=document.getElementById('warr'+w);
+  const open=el.style.display!=='none';
+  el.style.display=open?'none':'block';
+  arr.classList.toggle('closed',open);
+}
+
+function renderStudyPlan(){
+  const t=loadT(), n=loadN();
+  let html='';
+
+  for(const {w,label,dates} of WEEKS){
+    const wt=TASKS.filter(x=>x.w===w);
+    const done=wt.filter(x=>t[x.id]).length;
+    const pct=wt.length?Math.round(done/wt.length*100):0;
+    const allDone=done===wt.length;
+    html+=`<div class="wk-block ${allDone?'wk-done':''}">
+      <div class="wk-hdr" onclick="toggleWeek(${w})">
+        <div style="min-width:0">
+          <span class="wk-title">${allDone?'✅ ':''}${label}</span>
+          <span class="wk-ct">${dates} · ${done}/${wt.length}</span>
+        </div>
+        <div class="wk-bar"><div class="wk-fill" style="width:${pct}%"></div></div>
+        <span class="wk-arr" id="warr${w}">▾</span>
+      </div>
+      <div class="wk-tasks" id="wtasks${w}">`;
+    for(const task of wt){
+      const done_t=!!t[task.id];
+      const cd=CDEFS[task.c]||{color:'#999',bg:'#f5f5f5',short:'?'};
+      html+=`<div class="task-row ${done_t?'task-done':''} ${task.warn&&!done_t?'task-warn':''}">
+        <button class="task-cb ${done_t?'on':''}" onclick="toggleTask('${task.id}')">${done_t?'✓':''}</button>
+        <div class="task-body">
+          <div class="task-text">${task.icon} ${task.text}</div>
+          <div class="task-meta">
+            <span class="task-tag" style="background:${cd.bg};color:${cd.color}">${cd.short}</span>
+            ${task.ev?`<span class="task-link" onclick="openModal('${task.ev}')">ver evaluación →</span>`:''}
+          </div>
+        </div>
+      </div>`;
+    }
+    html+=`</div></div>`;
+  }
+
+  // Upcoming after week 4
+  html+=`<div style="padding:10px 20px 16px;font-size:.75em;color:#888;font-weight:700;border-top:1px solid #fce4ec;line-height:2">
+    <span style="color:var(--pink-hot);font-weight:900">🔭 En el horizonte (10 Abr →):</span><br>
+    <span style="color:#0891b2;font-weight:900">Prog:</span>
+    <span onclick="openModal('t1prog')" style="cursor:pointer;text-decoration:underline dotted;color:#0891b2">T1 (10 Abr)</span> ·
+    <span onclick="openModal('i1prog')" style="cursor:pointer;text-decoration:underline dotted;color:#0891b2;font-weight:900">⚠️ I1 (15 Abr)</span>
+    &nbsp;|&nbsp;
+    <span style="color:#9c27b0;font-weight:900">SisInfo:</span>
+    <span onclick="openModal('t2sis')" style="cursor:pointer;text-decoration:underline dotted;color:#9c27b0">T2 (7 Abr)</span> ·
+    <span onclick="openModal('i1sis')" style="cursor:pointer;text-decoration:underline dotted;color:#9c27b0;font-weight:900">⚠️ I1 (16 Abr)</span>
+    &nbsp;|&nbsp;
+    <span style="color:#e91e8c;font-weight:900">Eco:</span>
+    <span onclick="openModal('i1eco')" style="cursor:pointer;text-decoration:underline dotted;color:#e91e8c;font-weight:900">⚠️ I1 (18 Abr)</span>
+    &nbsp;|&nbsp;
+    <span style="color:#c2185b;font-weight:900">Termo:</span>
+    <span onclick="openModal('i1termo')" style="cursor:pointer;text-decoration:underline dotted;color:#c2185b;font-weight:900">⚠️ I1 (30 Abr)</span>
+    <br><span style="color:#bbb;font-style:italic;font-weight:600">Semana del 10 Abr: entregas + 3 interrogaciones en 4 días 🔥</span>
+  </div>`;
+
+  document.getElementById('splan').innerHTML=html;
+}
+
+
+
+function renderAll(){ Object.keys(CDEFS).forEach(renderPanel); renderStudyPlan(); }
+
+// Extend openModal to add tracking section
+const _baseOpen=openModal;
+openModal=function(id){
+  _baseOpen(id);
+  const entry=data[id]; if(!entry) return;
+  const n=loadN(), nd=n[id]||{};
+  const siOn=nd.did===true?'on':'', noOn=nd.did===false?'on':'';
+  const gv=nd.grade!=null?nd.grade:'', dis=nd.did===false?'disabled':'';
+  const sec=document.createElement('div');
+  sec.className='mt-sec';
+  sec.innerHTML=`<h4>📊 Mi Registro</h4>
+    <div class="mt-row">
+      <span style="font-weight:700;color:#5a0030">¿La realicé?</span>
+      <button class="tb si ${siOn}" title="Sí, la realicé" onclick="setDid2('${id}',true)">✓</button>
+      <button class="tb no ${noOn}" title="No la realicé" onclick="setDid2('${id}',false)">✕</button>
+      <span style="font-weight:700;color:#5a0030;margin-left:4px">Nota:</span>
+      <input class="tr-inp" id="minp-${id}" type="number" min="1" max="7" step="0.1"
+        value="${gv}" placeholder="1–7" ${dis} onchange="setGrade('${id}',this.value)">
+      ${nd.did===false?'<span style="color:#b71c1c;font-weight:800;font-size:.82em">⚠️ No realizada</span>':''}
+      ${nd.did===true&&nd.grade!=null?`<span style="color:#1b5e20;font-weight:800;font-size:.82em">✅ Nota: ${nd.grade}</span>`:''}
+    </div>`;
+  document.getElementById('modal-body').appendChild(sec);
+};
+
+document.addEventListener('DOMContentLoaded',()=>{ updateDots(); renderAll(); });
+updateDots(); renderAll();
+</script>
+</body>
+</html>
