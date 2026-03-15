@@ -871,6 +871,8 @@ const data = {
       { title: 'Descripcion', content: '<p>Control en clase sobre la política de integridad académica del curso. Se realiza en Canvas durante la sesión presencial.</p>' },
       { title: 'Material de estudio', content: `<ul>
         <li>${f(98532,14250165,'Política de Integridad Académica 2026 (PDF)')}</li>
+        <li>${f(98532,14323722,'Ayudantía Integridad Académica (PDF)')}</li>
+        <li>${f(98532,14323727,'[Grabación] Ayudantía Integridad Académica (MP4)')}</li>
       </ul>` },
       { title: 'Importante', content: '<p>Solo pueden realizarlo estudiantes que asistieron presencialmente. Entregar la actividad de una clase a la que no asististe es una falta de integridad académica.</p>' },
     ]
@@ -898,13 +900,15 @@ const data = {
     points: 'Grupal — ponderada con EVP',
     chips: ['Grupal', 'Evaluación de pares (EVP)', 'Política de atrasos'],
     sections: [
-      { title: 'Estado del enunciado', content: '<p class="no-info">El enunciado de la Tarea 1 no ha sido publicado aún en Canvas.</p>' },
-      { title: 'Temas probables', content: '<p>Según el calendario: <b>Introducción a SI, Procesos de Negocio, y Organización y Estrategia.</b></p>' },
-      { title: 'Material de las clases cubiertas', content: `<ul>
-        <li>${f(98532,14194001,'02a — Introducción a SI')}</li>
-        <li>${f(98532,14194002,'02b — Introducción a SI')}</li>
-        <li>${f(98532,14299654,'03 — Procesos de Negocios')}</li>
-        <li>${f(98532,14299697,'04 — Organización y Estrategia')}</li>
+      { title: 'Estado del enunciado', content: '<p class="no-info">El enunciado de la Tarea 1 individual no ha sido publicado aún. El módulo Tareas tiene el proyecto grupal (Hito 1).</p>' },
+      { title: 'Temas cubiertos', content: '<p>Introducción a SI, Procesos de Negocio (BPM/BPMN), Organización y Estrategia.</p>' },
+      { title: 'Clases publicadas en Canvas ✅', content: `<ul>
+        <li>${f(98532,14194001,'02a — Introducción a SI (PDF)')}</li>
+        <li>${f(98532,14194002,'02b — Introducción a SI (PDF)')}</li>
+        <li>${f(98532,14299654,'03 — Procesos de Negocios (PPTX)')}</li>
+        <li>${f(98532,14299697,'04 — Organización y Estrategia (PPTX)')}</li>
+        <li>${f(98532,14323522,'05 — BPMN I (PPTX)')}</li>
+        <li>${f(98532,14323527,'06 — BPMN II (PPTX)')}</li>
       </ul>` },
       { title: 'Política de atrasos', content: '<ul><li><b>&lt; 24 hrs:</b> nota × 0.85</li><li><b>24–48 hrs:</b> nota × 0.65</li><li><b>&gt; 48 hrs:</b> nota 1.0</li></ul>' },
       { title: 'Evaluación de pares (EVP)', content: '<p>Luego de recibir la nota grupal, se realiza EVP individual y anónima. Nota final = 1 + (Nota Grupal − 1) × (1 + EVP) / 2.</p>' },
@@ -1001,7 +1005,11 @@ const data = {
     chips: ['Grupal', 'Evaluación de pares (EVP)', 'Política de atrasos'],
     sections: [
       { title: 'Estado del enunciado', content: '<p class="no-info">Enunciado no publicado aún.</p>' },
-      { title: 'Temas probables', content: '<p>Según el calendario: <b>Aplicaciones Empresariales (ERP, CRM, SCM)</b>, Mercados y Plataformas Digitales, Gestión del Conocimiento.</p>' },
+      { title: 'Temas probables', content: '<p>Según el calendario: <b>Aplicaciones Empresariales (ERP, CRM, SCM)</b>, BPMN avanzado, Mercados y Plataformas Digitales.</p>' },
+      { title: 'Material ya publicado en Canvas', content: `<ul>
+        <li>${f(98532,14323522,'05 — BPMN I (PPTX)')}</li>
+        <li>${f(98532,14323527,'06 — BPMN II (PPTX)')}</li>
+      </ul>` },
       { title: 'Política de atrasos', content: '<ul><li><b>&lt; 24 hrs:</b> nota × 0.85</li><li><b>24–48 hrs:</b> nota × 0.65</li><li><b>&gt; 48 hrs:</b> nota 1.0</li></ul>' },
     ]
   },
