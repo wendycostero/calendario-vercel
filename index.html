@@ -108,7 +108,7 @@
   }
   .day:nth-child(7n) { border-right: none; }
   .day.empty { background: #fff9fb; }
-  .day.today { background: linear-gradient(135deg, #fff0fa, #ffe4f5); }
+  .day.today { background: linear-gradient(135deg, #fff0fa, #ffe4f5) !important; outline: 2.5px solid var(--pink-hot); outline-offset: -2px; border-radius: 10px; }
   .day.receso-day { background: #fafafa; }
   .day-num {
     font-size: 0.78em;
@@ -116,7 +116,7 @@
     color: #c48faa;
     margin-bottom: 4px;
   }
-  .day.today .day-num { color: var(--pink-hot); font-size: 0.9em; }
+  .day.today .day-num { color: var(--pink-hot); font-size: 0.9em; font-weight: 900; }
   .day.has-event .day-num { color: #5a0030; }
 
   /* EVENTS */
@@ -376,64 +376,66 @@
 
     <!-- Semana 1: 2-8 mar (inicio lunes) -->
     <div class="day empty"></div>
-    <div class="day"><div class="day-num">3</div></div>
-    <div class="day"><div class="day-num">4</div></div>
-    <div class="day"><div class="day-num">5</div></div>
-    <div class="day"><div class="day-num">6</div></div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-03-03" class="day"><div class="day-num">3</div></div>
+    <div data-date="2026-03-04" class="day"><div class="day-num">4</div></div>
+    <div data-date="2026-03-05" class="day"><div class="day-num">5</div></div>
+    <div data-date="2026-03-06" class="day"><div class="day-num">6</div></div>
+    <div data-date="2026-03-07" class="day empty"></div><div class="day empty"></div>
 
     <!-- Semana 2: 9-15 mar -->
-    <div class="day"><div class="day-num">9</div></div>
-    <div class="day"><div class="day-num">10</div></div>
-    <div class="day"><div class="day-num">11</div></div>
-    <div class="day today has-event tr-split-t0p-t1s"><div class="day-num">12 ⭐</div>
+    <div data-date="2026-03-09" class="day"><div class="day-num">9</div></div>
+    <div data-date="2026-03-10" class="day has-event"><div class="day-num">10</div>
+      <div class="event sis" onclick="openModal('ac01sis')">AC01 SisInfo (NotCo)</div>
+    </div>
+    <div data-date="2026-03-11" class="day"><div class="day-num">11</div></div>
+    <div data-date="2026-03-12" class="day has-event tr-split-t0p-t1s"><div class="day-num">12</div>
       <div class="task-start-badge t0p">▶ T0 Prog</div>
       <div class="task-start-badge t1s">▶ T1 SisInfo</div>
       <div class="event eco" onclick="openModal('c1eco')">C1 Economia</div>
       <div class="event prog" onclick="openModal('ac1prog')">AC1 Prog. Avanzada</div>
     </div>
-    <div class="day tr-split-t0p-t1s"><div class="day-num">13</div></div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-03-13" class="day tr-split-t0p-t1s"><div class="day-num">13</div></div>
+    <div data-date="2026-03-08" class="day empty"></div><div data-date="2026-03-14" class="day empty"></div>
 
     <!-- Semana 3: 16-22 mar -->
-    <div class="day tr-split-t0p-t1s"><div class="day-num">16</div></div>
-    <div class="day has-event tr-split-t0p-t1s"><div class="day-num">17</div>
+    <div data-date="2026-03-16" class="day tr-split-t0p-t1s"><div class="day-num">16</div></div>
+    <div data-date="2026-03-17" class="day has-event tr-split-t0p-t1s"><div class="day-num">17</div>
       <div class="event sis" onclick="openModal('ctrl_integr_sis')">Control Integridad SisInfo</div>
     </div>
-    <div class="day tr-split-t0p-t1s"><div class="day-num">18</div></div>
-    <div class="day has-event tr-split-t0p-t1s"><div class="day-num">19</div>
+    <div data-date="2026-03-18" class="day tr-split-t0p-t1s"><div class="day-num">18</div></div>
+    <div data-date="2026-03-19" class="day has-event tr-split-t0p-t1s"><div class="day-num">19</div>
       <div class="event eco" onclick="openModal('c2eco')">C2 Economia (asinc.)</div>
       <div class="event prog" onclick="openModal('ac2prog')">AC2 Prog. Avanzada</div>
       <div class="event prog task-end" onclick="openModal('t0prog')">🏁 T0 entrega Prog (20:00)</div>
     </div>
-    <div class="day has-event tr-split-t1p-t1s"><div class="day-num">20</div>
+    <div data-date="2026-03-20" class="day has-event tr-split-t1p-t1s"><div class="day-num">20</div>
       <div class="task-start-badge t1p">▶ T1 Prog</div>
-      <div class="event eco" onclick="openModal('eval1taller')">Video Fichaje Taller</div>
+      <div class="event eco" onclick="openModal('eval1taller')">Video Fichaje Taller (↑ Sáb 21)</div>
     </div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-03-21" class="day empty"></div><div data-date="2026-03-15" class="day empty"></div>
 
     <!-- Semana 4: 23-29 mar -->
-    <div class="day tr-split-t1p-t1s"><div class="day-num">23</div></div>
-    <div class="day has-event tr-split-t1p-t1s"><div class="day-num">24</div>
+    <div data-date="2026-03-23" class="day tr-split-t1p-t1s"><div class="day-num">23</div></div>
+    <div data-date="2026-03-24" class="day has-event tr-split-t1p-t1s"><div class="day-num">24</div>
       <div class="event sis task-end" onclick="openModal('t1sis')">🏁 Tarea 1 SisInfo</div>
     </div>
-    <div class="day tr-t1p"><div class="day-num">25</div></div>
-    <div class="day has-event tr-t1p"><div class="day-num">26</div>
+    <div data-date="2026-03-25" class="day tr-t1p"><div class="day-num">25</div></div>
+    <div data-date="2026-03-26" class="day has-event tr-t1p"><div class="day-num">26</div>
       <div class="event eco" onclick="openModal('c3eco')">C3 Economia</div>
       <div class="event prog" onclick="openModal('ac3prog')">AC3 Prog. Avanzada</div>
     </div>
-    <div class="day tr-t1p"><div class="day-num">27</div></div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-03-27" class="day tr-t1p"><div class="day-num">27</div></div>
+    <div data-date="2026-03-28" class="day empty"></div><div data-date="2026-03-22" class="day empty"></div>
 
     <!-- Semana 5: 30 mar -->
-    <div class="day has-event tr-split-t1p-t2s"><div class="day-num">30</div>
+    <div data-date="2026-03-30" class="day has-event tr-split-t1p-t2s"><div class="day-num">30</div>
       <div class="task-start-badge t2s">▶ T2 SisInfo</div>
       <div class="event lab" onclick="openModal('inicio_lab')">Inicio experimentos Lab</div>
     </div>
-    <div class="day has-event tr-split-t1p-t2s"><div class="day-num">31</div>
+    <div data-date="2026-03-31" class="day has-event tr-split-t1p-t2s"><div class="day-num">31</div>
       <div class="event eco" onclick="openModal('c4eco')">C4 Economia</div>
     </div>
-    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day empty"></div><div data-date="2026-03-29" class="day empty"></div><div class="day empty"></div>
     <div class="day empty"></div><div class="day empty"></div>
   </div>
 </div>
@@ -449,71 +451,71 @@
     <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
 
     <div class="day empty"></div><div class="day empty"></div>
-    <div class="day"><div class="day-num">1</div></div>
-    <div class="day"><div class="day-num" style="color:#bbb">2</div><div class="event feriado">Jueves Santo</div></div>
-    <div class="day tr-split-t1p-t2s"><div class="day-num" style="color:#888">3</div><div class="event feriado">Viernes Santo</div></div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-04-01" class="day"><div class="day-num">1</div></div>
+    <div data-date="2026-04-02" class="day"><div class="day-num" style="color:#bbb">2</div><div class="event feriado">Jueves Santo</div></div>
+    <div data-date="2026-04-03" class="day tr-split-t1p-t2s"><div class="day-num" style="color:#888">3</div><div class="event feriado">Viernes Santo</div></div>
+    <div data-date="2026-04-04" class="day empty"></div><div class="day empty"></div>
 
-    <div class="day has-event tr-split-t1p-t2s"><div class="day-num">6</div>
+    <div data-date="2026-04-06" class="day has-event tr-split-t1p-t2s"><div class="day-num">6</div>
       <div class="event lab" onclick="openModal('ctrl_lab')">Control Lectura Lab</div>
     </div>
-    <div class="day has-event tr-split-t1p-t2s"><div class="day-num">7</div>
+    <div data-date="2026-04-07" class="day has-event tr-split-t1p-t2s"><div class="day-num">7</div>
       <div class="event sis task-end" onclick="openModal('t2sis')">🏁 Tarea 2 SisInfo</div>
     </div>
-    <div class="day tr-split-t1p-t3s"><div class="day-num">8</div>
+    <div data-date="2026-04-08" class="day tr-split-t1p-t3s"><div class="day-num">8</div>
       <div class="task-start-badge t3s">▶ T3 SisInfo</div>
     </div>
-    <div class="day has-event tr-split-t1p-t3s"><div class="day-num">9</div>
+    <div data-date="2026-04-09" class="day has-event tr-split-t1p-t3s"><div class="day-num">9</div>
       <div class="event eco" onclick="openModal('c5eco')">C5 Economia (asinc.)</div>
       <div class="event prog" onclick="openModal('ac4prog')">AC4 Prog. Avanzada</div>
     </div>
-    <div class="day has-event tr-split-t1p-t3s"><div class="day-num">10</div>
+    <div data-date="2026-04-10" class="day has-event tr-split-t1p-t3s"><div class="day-num">10</div>
       <div class="event eco" onclick="openModal('eval1canvas')">Eval 1 Canvas Eco</div>
       <div class="event prog task-end" onclick="openModal('t1prog')">🏁 T1 entrega Prog (20:00)</div>
     </div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-04-05" class="day empty"></div><div data-date="2026-04-11" class="day empty"></div>
 
-    <div class="day tr-split-t2p-t3s"><div class="day-num">13</div>
+    <div data-date="2026-04-13" class="day tr-split-t2p-t3s"><div class="day-num">13</div>
       <div class="task-start-badge t2p">▶ T2 Prog</div>
     </div>
-    <div class="day tr-split-t2p-t3s"><div class="day-num">14</div></div>
-    <div class="day has-event tr-split-t2p-t3s"><div class="day-num">15</div>
+    <div data-date="2026-04-14" class="day tr-split-t2p-t3s"><div class="day-num">14</div></div>
+    <div data-date="2026-04-15" class="day has-event tr-split-t2p-t3s"><div class="day-num">15</div>
       <div class="event prog big" onclick="openModal('i1prog')">🔵 I1 Prog. Avanzada (17:30)</div>
     </div>
-    <div class="day has-event tr-split-t2p-t3s"><div class="day-num">16</div>
+    <div data-date="2026-04-16" class="day has-event tr-split-t2p-t3s"><div class="day-num">16</div>
       <div class="event eco" onclick="openModal('c6eco')">C6 Economia</div>
       <div class="event sis big" onclick="openModal('i1sis')">💜 I1 SisInfo (17:30)</div>
       <div class="event prog" onclick="openModal('ex1prog')">EX1 Prog. Avanzada</div>
     </div>
-    <div class="day tr-split-t2p-t3s"><div class="day-num">17</div></div>
-    <div class="day has-event tr-split-t2p-t3s"><div class="day-num">18</div>
+    <div data-date="2026-04-17" class="day tr-split-t2p-t3s"><div class="day-num">17</div></div>
+    <div data-date="2026-04-18" class="day has-event tr-split-t2p-t3s"><div class="day-num">18</div>
       <div class="event eco big" onclick="openModal('i1eco')">💗 INTERR. 1 Eco</div>
     </div>
-    <div class="day empty"></div>
+    <div data-date="2026-04-18" class="day empty"></div>
 
-    <div class="day tr-split-t2p-t3s"><div class="day-num">20</div></div>
-    <div class="day tr-split-t2p-t3s"><div class="day-num">21</div></div>
-    <div class="day tr-split-t2p-t3s"><div class="day-num">22</div></div>
-    <div class="day has-event tr-split-t2p-t3s"><div class="day-num">23</div>
+    <div data-date="2026-04-20" class="day tr-split-t2p-t3s"><div class="day-num">20</div></div>
+    <div data-date="2026-04-21" class="day tr-split-t2p-t3s"><div class="day-num">21</div></div>
+    <div data-date="2026-04-22" class="day tr-split-t2p-t3s"><div class="day-num">22</div></div>
+    <div data-date="2026-04-23" class="day has-event tr-split-t2p-t3s"><div class="day-num">23</div>
       <div class="event eco" onclick="openModal('c7eco')">C7 Economia (asinc.)</div>
       <div class="event prog" onclick="openModal('ac5prog')">AC5 Prog. Avanzada</div>
     </div>
-    <div class="day tr-split-t2p-t3s"><div class="day-num">24</div></div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-04-24" class="day tr-split-t2p-t3s"><div class="day-num">24</div></div>
+    <div data-date="2026-04-12" class="day empty"></div><div data-date="2026-04-25" class="day empty"></div>
 
-    <div class="day tr-split-t2p-t3s"><div class="day-num">27</div></div>
-    <div class="day has-event tr-split-t2p-t3s"><div class="day-num">28</div>
+    <div data-date="2026-04-27" class="day tr-split-t2p-t3s"><div class="day-num">27</div></div>
+    <div data-date="2026-04-28" class="day has-event tr-split-t2p-t3s"><div class="day-num">28</div>
       <div class="event sis task-end" onclick="openModal('t3sis')">🏁 Tarea 3 SisInfo</div>
     </div>
-    <div class="day tr-split-t2p-t4s"><div class="day-num">29</div>
+    <div data-date="2026-04-29" class="day tr-split-t2p-t4s"><div class="day-num">29</div>
       <div class="task-start-badge t4s">▶ T4 SisInfo</div>
     </div>
-    <div class="day has-event tr-split-t2p-t4s"><div class="day-num">30</div>
+    <div data-date="2026-04-30" class="day has-event tr-split-t2p-t4s"><div class="day-num">30</div>
       <div class="event eco" onclick="openModal('c8eco')">C8 Economia</div>
       <div class="event termo big" onclick="openModal('i1termo')">🌡️ I1 Termo (17:30)</div>
       <div class="event prog" onclick="openModal('ex2prog')">EX2 Prog. Avanzada</div>
     </div>
-    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-04-19" class="day empty"></div><div class="day empty"></div><div data-date="2026-04-26" class="day empty"></div>
   </div>
 </div>
 
@@ -524,56 +526,56 @@
     <div class="day-name">Lun</div><div class="day-name">Mar</div><div class="day-name">Mie</div>
     <div class="day-name">Jue</div><div class="day-name">Vie</div><div class="day-name">Sab</div><div class="day-name">Dom</div>
 
-    <div class="day tr-split-t2p-t4s"><div class="day-num" style="color:#888">1</div><div class="event feriado">Dia del Trabajo</div></div>
-    <div class="day tr-split-t2p-t4s"><div class="day-num">2</div></div>
-    <div class="day tr-split-t2p-t4s"><div class="day-num">3</div></div>
-    <div class="day tr-split-t2p-t4s"><div class="day-num">4</div></div>
-    <div class="day has-event tr-split-t2p-t4s"><div class="day-num">5</div>
+    <div data-date="2026-05-01" class="day tr-split-t2p-t4s"><div class="day-num" style="color:#888">1</div><div class="event feriado">Dia del Trabajo</div></div>
+    <div data-date="2026-05-02" class="day tr-split-t2p-t4s"><div class="day-num">2</div></div>
+    <div data-date="2026-05-03" class="day tr-split-t2p-t4s"><div class="day-num">3</div></div>
+    <div data-date="2026-05-04" class="day tr-split-t2p-t4s"><div class="day-num">4</div></div>
+    <div data-date="2026-05-05" class="day has-event tr-split-t2p-t4s"><div class="day-num">5</div>
       <div class="event eco" onclick="openModal('eval2taller')">Eval 2 Taller Eco</div>
     </div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-05-02" class="day empty"></div><div class="day empty"></div>
 
-    <div class="day tr-split-t2p-t4s"><div class="day-num">8</div></div>
-    <div class="day tr-split-t2p-t4s"><div class="day-num">9</div></div>
-    <div class="day tr-split-t2p-t4s"><div class="day-num">10</div></div>
-    <div class="day has-event tr-split-t2p-t4s"><div class="day-num">11</div>
+    <div data-date="2026-05-08" class="day tr-split-t2p-t4s"><div class="day-num">8</div></div>
+    <div data-date="2026-05-09" class="day tr-split-t2p-t4s"><div class="day-num">9</div></div>
+    <div data-date="2026-05-10" class="day tr-split-t2p-t4s"><div class="day-num">10</div></div>
+    <div data-date="2026-05-11" class="day has-event tr-split-t2p-t4s"><div class="day-num">11</div>
       <div class="event prog" onclick="openModal('ac6prog')">AC6 Prog. Avanzada</div>
     </div>
-    <div class="day tr-split-t2p-t4s"><div class="day-num">12</div></div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-05-12" class="day tr-split-t2p-t4s"><div class="day-num">12</div></div>
+    <div data-date="2026-05-03" class="day empty"></div><div data-date="2026-05-09" class="day empty"></div>
 
-    <div class="day tr-split-t2p-t4s"><div class="day-num">13</div></div>
-    <div class="day has-event tr-split-t2p-t4s"><div class="day-num">14</div>
+    <div data-date="2026-05-13" class="day tr-split-t2p-t4s"><div class="day-num">13</div></div>
+    <div data-date="2026-05-14" class="day has-event tr-split-t2p-t4s"><div class="day-num">14</div>
       <div class="event eco" onclick="openModal('c10eco')">C10 Economia</div>
       <div class="event prog" onclick="openModal('ex3prog')">EX3 Prog. Avanzada</div>
     </div>
-    <div class="day has-event tr-split-t2p-t4s"><div class="day-num">15</div>
+    <div data-date="2026-05-15" class="day has-event tr-split-t2p-t4s"><div class="day-num">15</div>
       <div class="event prog task-end" onclick="openModal('t2prog')">🏁 T2 entrega Prog (20:00)</div>
     </div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-05-16" class="day empty"></div><div data-date="2026-05-10" class="day empty"></div>
 
-    <div class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">18</div><div class="event receso">Receso</div>
+    <div data-date="2026-05-18" class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">18</div><div class="event receso">Receso</div>
       <div class="task-start-badge t3p">▶ T3 Prog</div>
     </div>
-    <div class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">19</div><div class="event receso">Receso</div></div>
-    <div class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">20</div><div class="event receso">Receso</div></div>
-    <div class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">21</div><div class="event receso">Receso ⚓</div></div>
-    <div class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">22</div><div class="event receso">Receso</div></div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-05-19" class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">19</div><div class="event receso">Receso</div></div>
+    <div data-date="2026-05-20" class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">20</div><div class="event receso">Receso</div></div>
+    <div data-date="2026-05-21" class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">21</div><div class="event receso">Receso ⚓</div></div>
+    <div data-date="2026-05-22" class="day receso-day tr-split-t3p-t4s"><div class="day-num" style="color:#888">22</div><div class="event receso">Receso</div></div>
+    <div data-date="2026-05-23" class="day empty"></div><div data-date="2026-05-17" class="day empty"></div>
 
-    <div class="day tr-split-t3p-t4s"><div class="day-num">25</div></div>
-    <div class="day tr-split-t3p-t4s"><div class="day-num">26</div></div>
-    <div class="day tr-split-t3p-t4s"><div class="day-num">27</div></div>
-    <div class="day has-event tr-split-t3p-t4s"><div class="day-num">28</div>
+    <div data-date="2026-05-25" class="day tr-split-t3p-t4s"><div class="day-num">25</div></div>
+    <div data-date="2026-05-26" class="day tr-split-t3p-t4s"><div class="day-num">26</div></div>
+    <div data-date="2026-05-27" class="day tr-split-t3p-t4s"><div class="day-num">27</div></div>
+    <div data-date="2026-05-28" class="day has-event tr-split-t3p-t4s"><div class="day-num">28</div>
       <div class="event eco" onclick="openModal('c11eco')">C11 Economia (asinc.)</div>
       <div class="event sis task-end" onclick="openModal('t4sis')">🏁 Tarea 4 SisInfo</div>
       <div class="event prog big" onclick="openModal('i2prog')">🔵 I2 Prog. Avanzada (17:30)</div>
     </div>
-    <div class="day has-event tr-split-t3p-t5s"><div class="day-num">29</div>
+    <div data-date="2026-05-29" class="day has-event tr-split-t3p-t5s"><div class="day-num">29</div>
       <div class="task-start-badge t5s">▶ T5 SisInfo</div>
       <div class="event termo big" onclick="openModal('i2termo')">🌡️ I2 Termo (17:30)</div>
     </div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-05-30" class="day empty"></div><div data-date="2026-05-24" class="day empty"></div>
   </div>
 </div>
 
@@ -584,68 +586,68 @@
     <div class="day-name">Lun</div><div class="day-name">Mar</div><div class="day-name">Mie</div>
     <div class="day-name">Jue</div><div class="day-name">Vie</div><div class="day-name">Sab</div><div class="day-name">Dom</div>
 
-    <div class="day tr-split-t3p-t5s"><div class="day-num">1</div></div>
-    <div class="day has-event tr-split-t3p-t5s"><div class="day-num">2</div>
+    <div data-date="2026-06-01" class="day tr-split-t3p-t5s"><div class="day-num">1</div></div>
+    <div data-date="2026-06-02" class="day has-event tr-split-t3p-t5s"><div class="day-num">2</div>
       <div class="event sis big" onclick="openModal('i2sis')">💜 I2 SisInfo (17:30)</div>
     </div>
-    <div class="day tr-split-t3p-t5s"><div class="day-num">3</div></div>
-    <div class="day has-event tr-split-t3p-t5s"><div class="day-num">4</div>
+    <div data-date="2026-06-03" class="day tr-split-t3p-t5s"><div class="day-num">3</div></div>
+    <div data-date="2026-06-04" class="day has-event tr-split-t3p-t5s"><div class="day-num">4</div>
       <div class="event eco" onclick="openModal('c12eco')">C12 Economia</div>
       <div class="event prog" onclick="openModal('ex4prog')">EX4 Prog. Avanzada</div>
     </div>
-    <div class="day tr-split-t3p-t5s"><div class="day-num">5</div></div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-06-05" class="day tr-split-t3p-t5s"><div class="day-num">5</div></div>
+    <div data-date="2026-06-06" class="day empty"></div><div class="day empty"></div>
 
-    <div class="day has-event tr-split-t3p-t5s"><div class="day-num">8</div>
+    <div data-date="2026-06-08" class="day has-event tr-split-t3p-t5s"><div class="day-num">8</div>
       <div class="event eco" onclick="openModal('eval3canvas')">Eval 3 Canvas Eco</div>
     </div>
-    <div class="day tr-split-t3p-t5s"><div class="day-num">9</div></div>
-    <div class="day has-event tr-split-t3p-t5s"><div class="day-num">10</div>
+    <div data-date="2026-06-09" class="day tr-split-t3p-t5s"><div class="day-num">9</div></div>
+    <div data-date="2026-06-10" class="day has-event tr-split-t3p-t5s"><div class="day-num">10</div>
       <div class="event sis task-end" onclick="openModal('t5sis')">🏁 Tarea 5 SisInfo</div>
     </div>
-    <div class="day has-event tr-t3p"><div class="day-num">11</div>
+    <div data-date="2026-06-11" class="day has-event tr-t3p"><div class="day-num">11</div>
       <div class="event eco" onclick="openModal('c13eco')">C13 Economia (asinc.)</div>
       <div class="event sis" onclick="openModal('pres_sis')">Pres. SisInfo</div>
       <div class="event prog" onclick="openModal('ac7prog')">AC7 Prog. Avanzada</div>
     </div>
-    <div class="day tr-t3p"><div class="day-num" style="color:#888">12</div><div class="event feriado">Sagrado Corazon</div></div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-06-12" class="day tr-t3p"><div class="day-num" style="color:#888">12</div><div class="event feriado">Sagrado Corazon</div></div>
+    <div data-date="2026-06-07" class="day empty"></div><div data-date="2026-06-13" class="day empty"></div>
 
-    <div class="day tr-t3p"><div class="day-num">15</div></div>
-    <div class="day has-event tr-t3p"><div class="day-num">16</div>
+    <div data-date="2026-06-15" class="day tr-t3p"><div class="day-num">15</div></div>
+    <div data-date="2026-06-16" class="day has-event tr-t3p"><div class="day-num">16</div>
       <div class="event eco big" onclick="openModal('i2eco')">💗 INTERR. 2 Eco</div>
       <div class="event sis" onclick="openModal('pres_sis')">Pres. SisInfo</div>
     </div>
-    <div class="day tr-t3p"><div class="day-num">17</div></div>
-    <div class="day has-event tr-t3p"><div class="day-num">18</div>
+    <div data-date="2026-06-17" class="day tr-t3p"><div class="day-num">17</div></div>
+    <div data-date="2026-06-18" class="day has-event tr-t3p"><div class="day-num">18</div>
       <div class="event eco" onclick="openModal('c14eco')">C14 Economia</div>
       <div class="event sis" onclick="openModal('pres_sis')">Pres. SisInfo</div>
     </div>
-    <div class="day has-event tr-t3p"><div class="day-num">19</div>
+    <div data-date="2026-06-19" class="day has-event tr-t3p"><div class="day-num">19</div>
       <div class="event prog task-end" onclick="openModal('t3prog')">🏁 T3 entrega Prog (20:00)</div>
     </div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-06-20" class="day empty"></div><div data-date="2026-06-14" class="day empty"></div>
 
-    <div class="day"><div class="day-num">22</div></div>
-    <div class="day has-event"><div class="day-num">23</div>
+    <div data-date="2026-06-22" class="day"><div class="day-num">22</div></div>
+    <div data-date="2026-06-23" class="day has-event"><div class="day-num">23</div>
       <div class="event sis" onclick="openModal('pres_sis')">Pres. SisInfo</div>
     </div>
-    <div class="day"><div class="day-num">24</div></div>
-    <div class="day has-event"><div class="day-num">25</div>
+    <div data-date="2026-06-24" class="day"><div class="day-num">24</div></div>
+    <div data-date="2026-06-25" class="day has-event"><div class="day-num">25</div>
       <div class="event eco" onclick="openModal('c15eco')">C15 Economia (asinc.)</div>
       <div class="event sis" onclick="openModal('pres_sis')">Pres. SisInfo</div>
     </div>
-    <div class="day has-event"><div class="day-num">26</div>
+    <div data-date="2026-06-26" class="day has-event"><div class="day-num">26</div>
       <div class="event lab">Fin Lab Termo 🎀</div>
     </div>
-    <div class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-06-27" class="day empty"></div><div data-date="2026-06-21" class="day empty"></div>
 
-    <div class="day has-event"><div class="day-num">29</div></div>
-    <div class="day has-event"><div class="day-num">30</div>
+    <div data-date="2026-06-29" class="day has-event"><div class="day-num">29</div></div>
+    <div data-date="2026-06-30" class="day has-event"><div class="day-num">30</div>
       <div class="event termo big" onclick="openModal('ex_termo')">🌡️ Examen Termo (08:20)</div>
       <div class="event prog big" onclick="openModal('ex_prog')">🔵 Examen Prog. Av. (13:30)</div>
     </div>
-    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+    <div class="day empty"></div><div data-date="2026-06-28" class="day empty"></div><div class="day empty"></div>
     <div class="day empty"></div><div class="day empty"></div>
   </div>
 </div>
@@ -659,22 +661,22 @@
     <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
     <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
     <div class="day empty"></div><div class="day empty"></div>
-    <div class="day"><div class="day-num">1</div></div>
-    <div class="day"><div class="day-num">2</div></div>
-    <div class="day has-event"><div class="day-num">3</div>
+    <div data-date="2026-07-01" class="day"><div class="day-num">1</div></div>
+    <div data-date="2026-07-02" class="day"><div class="day-num">2</div></div>
+    <div data-date="2026-07-03" class="day has-event"><div class="day-num">3</div>
       <div class="event sis" onclick="openModal('ex_sis')">Examen SisInfo (si aplica)</div>
     </div>
-    <div class="day has-event"><div class="day-num">4</div>
+    <div data-date="2026-07-04" class="day has-event"><div class="day-num">4</div>
       <div class="event eco big" onclick="openModal('ex_eco')">💗 EXAMEN Eco</div>
     </div>
-    <div class="day empty"></div>
-    <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
-    <div class="day has-event"><div class="day-num">9</div></div>
+    <div data-date="2026-07-04" class="day empty"></div>
+    <div class="day empty"></div><div data-date="2026-07-05" class="day empty"></div><div class="day empty"></div>
+    <div data-date="2026-07-09" class="day has-event"><div class="day-num">9</div></div>
     <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
     <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
     <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
     <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
-    <div class="day has-event"><div class="day-num">9</div></div>
+    <div data-date="2026-07-09" class="day has-event"><div class="day-num">9</div></div>
     <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
   </div>
 </div>
@@ -685,12 +687,13 @@
   <div class="table-section">
     <table>
       <tr><th>Fecha</th><th>Curso</th><th>Evaluacion</th><th>Info</th></tr>
+      <tr><td>Mar 10 Mar</td><td><span class="tag sis">SisInfo</span></td><td>AC01 — Caso NotCo (en clase)</td><td><button onclick="openModal('ac01sis')" style="background:#f3e5f5;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#6a1b9a;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
       <tr><td>Jue 12 Mar</td><td><span class="tag prog">Prog. Avanzada</span></td><td>Actividad 1 (en clase)</td><td><button onclick="openModal('ac1prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
       <tr><td>Jue 12 Mar</td><td><span class="tag eco">Economia</span></td><td>Control 1 (presencial)</td><td><button onclick="openModal('c1eco')" style="background:var(--pink-pale);border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:var(--pink-hot);font-weight:800;font-size:0.8em">Ver info</button></td></tr>
       <tr><td>Mar 17 Mar</td><td><span class="tag sis">SisInfo</span></td><td>Control Integridad Academica</td><td><button onclick="openModal('ctrl_integr_sis')" style="background:#f3e5f5;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#6a1b9a;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
       <tr><td>Jue 19 Mar</td><td><span class="tag prog">Prog. Avanzada</span></td><td>T0 — Entrega (20:00)</td><td><button onclick="openModal('t0prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
       <tr><td>Mar 24 Mar</td><td><span class="tag sis">SisInfo</span></td><td>Tarea 1</td><td><button onclick="openModal('t1sis')" style="background:#f3e5f5;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#6a1b9a;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
-      <tr><td>Vie 20 Mar</td><td><span class="tag eco">Economia</span></td><td>Video Fichaje Taller de Escritura</td><td>—</td></tr>
+      <tr><td>Sáb 21 Mar</td><td><span class="tag eco">Economia</span></td><td>Video Fichaje Taller de Escritura</td><td><button onclick="openModal('eval1taller')" style="background:var(--pink-pale);border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:var(--pink-hot);font-weight:800;font-size:0.8em">Ver info</button></td></tr>
       <tr><td>Vie 10 Abr</td><td><span class="tag prog">Prog. Avanzada</span></td><td>T1 — Entrega (20:00)</td><td><button onclick="openModal('t1prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
       <tr><td>Mié 15 Abr</td><td><span class="tag prog">Prog. Avanzada</span></td><td><b>Interrogacion 1</b> (17:30)</td><td><button onclick="openModal('i1prog')" style="background:#e0f2fe;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#0c4a6e;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
       <tr><td>Jue 16 Abr</td><td><span class="tag sis">SisInfo</span></td><td><b>Interrogacion 1</b></td><td><button onclick="openModal('i1sis')" style="background:#f3e5f5;border:none;border-radius:10px;padding:2px 10px;cursor:pointer;color:#6a1b9a;font-weight:800;font-size:0.8em">Ver info</button></td></tr>
@@ -845,6 +848,19 @@ const data = {
       </ul>` },
     ]
   },
+  ac01sis: {
+    course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
+    title: 'AC01 — Caso NotCo (en clase)',
+    date: 'Martes 10 de Marzo, 2026', due: 'en clase (ya realizada)',
+    points: '3 puntos',
+    chips: ['Presencial', 'Grupal', 'Ya realizada'],
+    sections: [
+      { title: 'Descripcion', content: '<p>Actividad en clase sobre el caso NotCo — startup chilena de IA en la industria alimentaria.</p>' },
+      { title: 'Material', content: `<ul>
+        <li><a href="https://cursos.canvas.uc.cl/courses/98532/assignments/578207" target="_blank" style="color:#9c27b0;font-weight:700">📝 Assignment AC01 en Canvas</a></li>
+      </ul>` },
+    ]
+  },
   ctrl_integr_sis: {
     course: 'Sistemas de Información — IIC2713', courseClass: 'sis',
     title: 'Control de Integridad Académica',
@@ -901,11 +917,13 @@ const data = {
     points: 'Hasta 6 puntos (participación)',
     chips: ['Asincrónico', 'Canvas', 'Con apuntes'],
     sections: [
-      { title: 'Temas evaluados', content: '<p>Módulo 2: Funcionamiento de los Mercados (Temas 04 y 05).</p>' },
+      { title: 'Temas evaluados', content: '<p>Tema 02: Modelos Básicos (FPP, ventajas comparativas) — Tema 03: Importancia del Comercio Internacional.</p>' },
       { title: 'Material de estudio', content: `<ul>
-        <li>${f(101712,14222166,'Tema 04 — Las Fuerzas del Mercado')}</li>
-        <li>${f(101712,14222168,'Tema 05 — Elasticidad')}</li>
-        <li>${f(101712,14222167,'Tema 05 — Elasticidad (Lectura)')}</li>
+        <li>\${f(101712,14308935,'Tema 02 — Modelos Básicos (PPT)')}</li>
+        <li>\${f(101712,14222140,'Tema 02 — Modelos Básicos (Lectura)')}</li>
+        <li>\${f(101712,14222143,'Tema 02 — FPP (PDF)')}</li>
+        <li>\${f(101712,14222153,'Tema 03 — Comercio Internacional (PPT)')}</li>
+        <li>\${f(101712,14222154,'Tema 03 — Comercio Internacional (Lectura)')}</li>
       </ul>` },
     ]
   },
@@ -1637,7 +1655,7 @@ const CDEFS = {
         {id:'c14eco',label:'C14',w:1/13,date:'18 Jun'},{id:'c15eco',label:'C15',w:1/13,date:'25 Jun'},
       ]},
       { label:'Taller NT (20%)', w:0.2, note:'Promedio evaluaciones del Taller de Escritura', items:[
-        {id:'eval1taller',label:'Video Fichaje',w:0.25,date:'20 Mar'},
+        {id:'eval1taller',label:'Video Fichaje',w:0.25,date:'21 Mar'},
         {id:'eval1canvas',label:'Eval 1 Canvas',w:0.25,date:'10 Abr'},
         {id:'eval2taller',label:'Eval 2 Taller',w:0.25,date:'5 May'},
         {id:'eval3canvas',label:'Eval 3 Canvas',w:0.25,date:'8 Jun'},
@@ -1812,14 +1830,14 @@ const TASKS = [
   { id:'w1_1', w:1, c:'sis',  icon:'📄', text:'Leer la política de integridad académica de SisInfo (PDF en Canvas) — control el Mar 17', ev:'ctrl_integr_sis' },
   { id:'w1_2', w:1, c:'prog', icon:'💻', text:'Leer enunciado de T0 Prog. Avanzada y crear repo en GitHub Classroom — entrega Mar 19', ev:'t0prog' },
   { id:'w1_3', w:1, c:'prog', icon:'📖', text:'Estudiar contenidos Semana 2: Git, Jupyter, PEP8 (repo contenidos IIC2233)', ev:'ac2prog' },
-  { id:'w1_4', w:1, c:'eco',  icon:'🎬', text:'Planificar y grabar el Video Fichaje para el Taller de Escritura — entrega Mar 20', ev:'eval1taller' },
+  { id:'w1_4', w:1, c:'eco',  icon:'🎬', text:'Planificar y grabar el Video Fichaje para el Taller de Escritura — entrega Sáb 21 Mar 23:59', ev:'eval1taller' },
   { id:'w1_5', w:1, c:'eco',  icon:'📖', text:'Repasar Temas 01 y 02 de Economía (ya evaluados en C1 — reforzar antes de C3)', ev:'c3eco' },
 
   // SEMANA 2 (16-22 Mar)
   { id:'w2_1', w:2, c:'sis',  icon:'✅', text:'Rendir Control de Integridad Académica (Mar 17, en clase, mod. 2)', ev:'ctrl_integr_sis' },
   { id:'w2_2', w:2, c:'prog', icon:'💻', text:'Finalizar T0 y hacer commit con hash antes de las 20:00 del Jue 19 Mar', ev:'t0prog' },
   { id:'w2_3', w:2, c:'prog', icon:'🖥️', text:'AC2 en clase (Jue 19): repasar listas ligadas, stacks, colas, sets y dicts antes de ir', ev:'ac2prog' },
-  { id:'w2_4', w:2, c:'eco',  icon:'📤', text:'Subir Video Fichaje Taller de Escritura antes del Vie 20 (23:59)', ev:'eval1taller' },
+  { id:'w2_4', w:2, c:'eco',  icon:'📤', text:'Subir Video Fichaje Taller de Escritura antes del Sáb 21 Mar (23:59) — Canvas confirma esta fecha', ev:'eval1taller' },
   { id:'w2_5', w:2, c:'eco',  icon:'📖', text:'Leer Temas 06–09: Eficiencia de Mercado, Control de Precios, Comercio Int., Impuestos', ev:'c3eco' },
   { id:'w2_6', w:2, c:'sis',  icon:'📖', text:'Estudiar PPTs 02a–04 (Intro SI, BPM, Estrategia) para Tarea 1 SisInfo', ev:'t1sis' },
   { id:'w2_7', w:2, c:'prog', icon:'📖', text:'Estudiar Semana 3 contenidos Prog: EDD (pilas, colas, árboles) — antes del Jue 26', ev:'ac3prog' },
@@ -1943,6 +1961,31 @@ openModal=function(id){
 
 document.addEventListener('DOMContentLoaded',()=>{ updateDots(); renderAll(); });
 updateDots(); renderAll();
+
+// ---- DYNAMIC TODAY HIGHLIGHT ----
+function markToday() {
+  // Remove any leftover static today class
+  document.querySelectorAll('.day.today').forEach(el => {
+    el.classList.remove('today');
+    el.querySelectorAll('.day-num').forEach(dn => {
+      dn.textContent = dn.textContent.replace(' ⭐', '').trim();
+    });
+  });
+
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const todayStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+  const el = document.querySelector(`[data-date="${todayStr}"]`);
+  if (el) {
+    el.classList.add('today');
+    const dn = el.querySelector('.day-num');
+    if (dn && !dn.textContent.includes('⭐')) {
+      dn.textContent = dn.textContent.trim() + ' ⭐';
+    }
+  }
+}
+markToday();
+
 </script>
 </body>
 </html>
